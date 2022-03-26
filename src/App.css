@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background: #999;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.color-white {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.mr-12 {
+  margin-right: 12px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.mr-24 {
+  margin-right: 12px;
+}
+
+.App {
+  margin: 0 auto;
+  display: flex;
+  justify-items: center;
+  max-width: 1600px;
+}
+
+.App > * {
+  width: 100%;
+}
+
+.upload-wrapper {
+  text-align: center;
+}
+
+.layout {
+  display: flex;
+  width: 100%;
+}
+
+.layout-table {
+  overflow-y: scroll;
+  max-height: 1000px;
+}
+.layout h3 {
+  color: white;
+}
+
+table {
+  font-size: 0.7rem;
+  width: 100%;
+  background-color: white;
+}
+
+tr:nth-child(odd) {
+  background: #eee;
+}
+
+input {
+  border: 1px solid gray;
+  padding: 3px;
+}
+
+.hide {
+  display: none;
+}
+
+.show-block {
+  display: block;
+}
+
+.open-modal {
+  display: block;
+  position: fixed;
+  inset: 24px;
+  background-color: #fff;
+  border: 4px solid #ff3f40;
+  overflow: scroll;
+  box-shadow: 0px 13px 33px 0px #0000004f;
+  padding: 24px;
+}
+
+button {
+  background: #338cff;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 7px #00000047;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: 2px solid #2d7be1;
+  font-size: 0.7rem;
+}
+button:hover {
+  cursor: pointer;
+  background: #4395ff;
 }

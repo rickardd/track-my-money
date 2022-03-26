@@ -1,0 +1,121 @@
+h3 {
+  font-size: 1rem;
+}
+
+fieldset {
+  padding: 12px 24px;
+  background-color: #ddd;
+  max-width: 600px;
+}
+
+fieldset:nth-child(odd) {
+  background-color: #eee;
+}
+
+.tag {
+  background: rgb(255, 63, 63);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-right: 4px;
+  display: inline-block;
+  font-size: 0.6rem;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 12px 4px;
+}
+
+input {
+  background: rgb(255, 212, 212);
+  color: rgb(255, 63, 63);
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 4px solid white;
+  margin-top: 12px;
+  width: 80px;
+}
+
+input.invalid {
+  background: rgb(255, 191, 191);
+  border: 4px solid rgb(255, 91, 91);
+}
+
+input[type="file"] {
+  min-width: 200px;
+  padding: 50px 100px;
+  margin-top: 40px;
+}
+
+input::placeholder {
+  color: rgb(255, 116, 116);
+}
+
+input:focus {
+  outline-color: rgb(255, 116, 116);
+}
+
+.bar-label {
+  margin-bottom: 2px;
+  color: rgb(55, 55, 55);
+  font-size: 0.8rem;
+}
+
+.bar {
+  display: flex;
+  background-color: rgb(125, 125, 125);
+  width: 200px;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.bar-fill {
+  background-color: rgb(255, 63, 63);
+}
+
+dl {
+  color: rgb(55, 55, 55);
+  font-size: 0.8rem;
+  display: flex;
+  max-width: 300px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+dt {
+  width: 40%;
+}
+
+dd {
+  width: 60%;
+  font-weight: bold;
+}
+
+.filter-header {
+  display: flex;
+  align-items: flex-end;
+}
+
+.filter-header > * {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+}
+
+.filter-header > *:last-child {
+  text-align: right;
+}
+
+.filter-header h3 {
+  margin: 0;
+  padding: 0;
+  color: rgb(70, 70, 70);
+  text-transform: uppercase;
+}
