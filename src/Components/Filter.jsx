@@ -1,3 +1,4 @@
+import "./Filter.css";
 import { useContext } from "react";
 import AppContext from "../app-context";
 // import {  } from "../Services/helper";
@@ -11,7 +12,6 @@ import {
   getMonthlyAverage,
   countTotal,
 } from "../Services/helper";
-import "./Filter.css";
 import { useState } from "react";
 
 // function useForceUpdate() {

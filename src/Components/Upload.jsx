@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import AppContext from "../app-context";
 
-export function Upload() {
+export function Upload(props) {
   const { setTransactions } = useContext(AppContext);
+  const { button } = props;
 
   const convertToJson = (data) => {
     let arr = [];
@@ -57,6 +58,7 @@ export function Upload() {
         type="file"
         name="upload"
         defaultValue=""
+        data-button={button}
         onChange={onFileChange}
       />
       {/* <input type="button" defaultValue="Submit" onClick={this.onSubmit} /> */}

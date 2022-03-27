@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #999;
+  background: #9261a5;
 }
 
 .color-white {
@@ -31,6 +31,26 @@ body {
   width: 100%;
 }
 
+header {
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  box-shadow: 0px 13px 33px 0px #0000004f;
+  color: black;
+}
+
+.header-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  column-gap: 12px;
+  align-items: baseline;
+}
+
 .upload-wrapper {
   text-align: center;
 }
@@ -38,12 +58,16 @@ body {
 .layout {
   display: flex;
   width: 100%;
+  column-gap: 24px;
+  margin-top: 100px;
 }
 
 .layout-table {
   overflow-y: scroll;
   max-height: 1000px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
 }
+
 .layout h3 {
   color: white;
 }
@@ -52,6 +76,7 @@ table {
   font-size: 0.7rem;
   width: 100%;
   background-color: white;
+  padding: 24px;
 }
 
 tr:nth-child(odd) {

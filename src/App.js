@@ -79,18 +79,27 @@ function App() {
   return (
     <div className="App">
       <AppProvider value={data}>
-        <div className="App">
-          <div>
-            <div className="upload-wrapper">
-              <Upload />
-            </div>
+        <div>
+          {!transactions.length &&
+            (() => {
+              return (
+                <div className="upload-wrapper">
+                  <Upload button={false} />
+                </div>
+              );
+            })()}
 
-            {transactions.length &&
-              (() => {
-                return (
-                  <>
-                    <h3 className="color-white">
-                      <span className="mr-24">Total: {formatMoney(total)}</span>
+          {transactions.length &&
+            (() => {
+              return (
+                <>
+                  <header>
+                    <div className="header-content">
+                      <h3>
+                        <span className="mr-24">
+                          Total: {formatMoney(total)}
+                        </span>
+                      </h3>
                       <button onClick={handleAddNewCategory} className="mr-24">
                         Add Category
                       </button>
@@ -101,51 +110,53 @@ function App() {
                       >
                         {enableTableHighlight ? "Disable" : "Enable"} Highlight
                       </button>
-                    </h3>
-                  </>
-                );
-              })()}
 
-            <div className="layout">
-              <div>
-                {transactions.length &&
-                  (() => {
-                    return (
-                      <>
-                        <Filters />
-                        {filters.map((filter, index) => {
-                          return (
-                            <Table
-                              key={`table-id-${filter.id}`}
-                              id={`table-${filter.id}`}
-                              transactions={getFilteredTransactions(
-                                filter.queries,
-                                transactions
-                              )}
-                              isModal={true}
-                            />
-                          );
-                        })}
-                      </>
-                    );
-                  })()}
-              </div>
-              <div className="layout-table">
-                {transactions.length &&
-                  (() => {
-                    return (
-                      <Table
-                        key={`table-id-other`}
-                        tableTitle=""
-                        transactions={getFilteredTransactionsOther(
-                          transactions,
-                          filters
-                        )}
-                        isModal={false}
-                      />
-                    );
-                  })()}
-              </div>
+                      <Upload button={true} />
+                    </div>
+                  </header>
+                </>
+              );
+            })()}
+
+          <div className="layout">
+            <div>
+              {transactions.length &&
+                (() => {
+                  return (
+                    <>
+                      <Filters />
+                      {filters.map((filter, index) => {
+                        return (
+                          <Table
+                            key={`table-id-${filter.id}`}
+                            id={`table-${filter.id}`}
+                            transactions={getFilteredTransactions(
+                              filter.queries,
+                              transactions
+                            )}
+                            isModal={true}
+                          />
+                        );
+                      })}
+                    </>
+                  );
+                })()}
+            </div>
+            <div className="layout-table">
+              {transactions.length &&
+                (() => {
+                  return (
+                    <Table
+                      key={`table-id-other`}
+                      tableTitle=""
+                      transactions={getFilteredTransactionsOther(
+                        transactions,
+                        filters
+                      )}
+                      isModal={false}
+                    />
+                  );
+                })()}
             </div>
           </div>
         </div>
