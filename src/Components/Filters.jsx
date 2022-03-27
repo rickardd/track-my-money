@@ -3,7 +3,6 @@ import { Filter } from "./Filter";
 
 import { useContext } from "react";
 import AppContext from "../app-context";
-import { useEffect } from "react";
 
 export function Filters() {
   const { filters, transactions } = useContext(AppContext);

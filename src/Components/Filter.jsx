@@ -13,7 +13,6 @@ import {
 } from "../Services/helper";
 import "./Filter.css";
 import { useState } from "react";
-import { useEffect } from "react";
 
 // function useForceUpdate() {
 //   const [value, setValue] = useState(0); // integer state
