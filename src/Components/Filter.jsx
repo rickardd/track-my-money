@@ -14,14 +14,7 @@ import {
 } from "../Services/helper";
 import { useState } from "react";
 
-// function useForceUpdate() {
-//   const [value, setValue] = useState(0); // integer state
-//   return () => setValue((value) => value + 1); // update the state to force render
-// }
-
 export function Filter(props) {
-  // const forceUpdate = useForceUpdate();
-
   const {
     filters,
     setFilters,
@@ -47,7 +40,6 @@ export function Filter(props) {
   const [query, setQuery] = useState("");
   const [title, setTitle] = useState(titleProp);
   const [isValidQuery, setIsValidQuery] = useState(true);
-  const [updateNumber, setUpdateNumber] = useState(0);
 
   useEffect(() => {
     updateFilter();
@@ -141,7 +133,6 @@ export function Filter(props) {
   };
 
   const handleUpdateClick = (e) => {
-    setUpdateNumber(updateNumber + 1);
     updateFilter();
   };
 
@@ -211,7 +202,7 @@ export function Filter(props) {
         })}
       </div>
       <button className="update-btn" onClick={handleUpdateClick} type="button">
-        Update {updateNumber}
+        Update
       </button>
     </fieldset>
   );
