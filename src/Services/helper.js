@@ -21,6 +21,8 @@ const formatMoney = (value) => {
 
 const countWeeks = (transactions) => {
   // We assume transactions are sorted by date.
+  if (transactions.length <= 1) return 0;
+
   const startDate = transactions[0][TRANSACTION_DATE];
   const endDate = transactions[transactions.length - 1][TRANSACTION_DATE];
 
@@ -31,6 +33,7 @@ const countWeeks = (transactions) => {
 };
 
 const countMonths = (transactions) => {
+  if (transactions.length <= 1) return 0;
   // We assume transactions are sorted by date.
   const startDate = transactions[0][TRANSACTION_DATE];
   const endDate = transactions[transactions.length - 1][TRANSACTION_DATE];
@@ -42,11 +45,11 @@ const countMonths = (transactions) => {
 };
 
 const getWeeklyAverage = (weeks, total) => {
-  return weeks ? parseFloat((parseInt(total, 10) / weeks).toFixed(2)) : "N/A";
+  return weeks ? parseFloat((parseInt(total, 10) / weeks).toFixed(2)) : 0;
 };
 
 const getMonthlyAverage = (months, total) => {
-  return months ? parseFloat((parseInt(total, 10) / months).toFixed(2)) : "N/A";
+  return months ? parseFloat((parseInt(total, 10) / months).toFixed(2)) : 0;
 };
 
 const getFilteredTransactions = (queries, transactions) => {

@@ -66,13 +66,11 @@ export function Filter(props) {
     // Should e.g TV be able to be in both categories entertainment and Tech?
     // Prob not, this could look like you spend more then you do.
 
-    if (filteredTransactions.length) {
-      var total = countTotal(filteredTransactions);
-      var durationWeeks = countWeeks(filteredTransactions);
-      var durationMonths = countMonths(filteredTransactions);
-      var weeklyAverage = getWeeklyAverage(durationWeeks, total);
-      var monthlyAverage = getMonthlyAverage(durationMonths, total);
-    }
+    const total = countTotal(filteredTransactions);
+    const durationWeeks = countWeeks(filteredTransactions);
+    const durationMonths = countMonths(filteredTransactions);
+    const weeklyAverage = getWeeklyAverage(durationWeeks, total);
+    const monthlyAverage = getMonthlyAverage(durationMonths, total);
 
     const newFilter = {
       ...filter,
@@ -175,9 +173,9 @@ export function Filter(props) {
         <dt>Total spending</dt>
         <dd>{formatMoney(total)}</dd>
         <dt>Avg weekly</dt>
-        <dd>{formatMoney(weeklyAverage)}</dd>
+        <dd>{weeklyAverage > 0 ? formatMoney(weeklyAverage) : "N/A"}</dd>
         <dt>Avg monthly</dt>
-        <dd>{formatMoney(monthlyAverage)}</dd>
+        <dd>{monthlyAverage > 0 ? formatMoney(monthlyAverage) : "N/A"}</dd>
       </dl>
       <div>
         <input
