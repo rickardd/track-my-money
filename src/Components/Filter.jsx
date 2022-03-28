@@ -1,5 +1,5 @@
 import "./Filter.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AppContext from "../app-context";
 // import {  } from "../Services/helper";
 import { getFilteredTransactions } from "../Services/helper";
@@ -47,16 +47,11 @@ export function Filter(props) {
   const [query, setQuery] = useState("");
   const [title, setTitle] = useState(titleProp);
   const [isValidQuery, setIsValidQuery] = useState(true);
+  const [updateNumber, setUpdateNumber] = useState(0);
 
-  // useEffect(() => {
-  //   console.log("Filters, UseEffect", filters, filter);
-  //   // forceUpdate();
-  // }, filters);
-
-  // useEffect(() => {
-  //   console.log("Filter, UseEffect", filters, filter);
-  //   // forceUpdate();
-  // }, filter);
+  useEffect(() => {
+    updateFilter();
+  }, []);
 
   const updateFilters = (filter) => {
     const index = filters.findIndex((f) => f.id === id);
@@ -66,7 +61,8 @@ export function Filter(props) {
     console.log("Update Filter", filters, newFilters);
   };
 
-  const updateFilter = (options) => {
+  /** options will be merged with filter e.g option param {total: 10} will set the filter.total to 10 */
+  const updateFilter = (options = {}) => {
     const filteredTransactions = [
       ...getFilteredTransactions(filter.queries, transactions),
     ];
@@ -85,21 +81,16 @@ export function Filter(props) {
       var monthlyAverage = getMonthlyAverage(durationMonths, total);
     }
 
-    const newQueries =
-      options && options.newQueries ? options.newQueries : [query, ...queries];
-
     const newFilter = {
       ...filter,
+      ...options,
       total,
-      queries: newQueries,
       durationWeeks,
       durationMonths,
       weeklyAverage,
       monthlyAverage,
       transactions: filteredTransactions,
     };
-
-    // console.log(newFilter);
 
     updateFilters(newFilter);
   };
@@ -117,9 +108,9 @@ export function Filter(props) {
         return;
       }
 
+      updateFilter({ queries: [query, ...queries] });
       setQuery("");
       setIsValidQuery(true);
-      updateFilter();
     }
   };
 
@@ -136,7 +127,6 @@ export function Filter(props) {
   };
 
   const handleTagClick = ({ target: el }) => {
-    // debugger;
     const newQueries = queries.filter((q) => q !== el.innerHTML);
     updateFilter({ newQueries });
   };
@@ -148,6 +138,11 @@ export function Filter(props) {
 
   const handleShowTransactions = (e) => {
     setShowTableId(`table-${filter.id}`);
+  };
+
+  const handleUpdateClick = (e) => {
+    setUpdateNumber(updateNumber + 1);
+    updateFilter();
   };
 
   return (
@@ -215,6 +210,9 @@ export function Filter(props) {
           );
         })}
       </div>
+      <button className="update-btn" onClick={handleUpdateClick} type="button">
+        Update {updateNumber}
+      </button>
     </fieldset>
   );
 }
