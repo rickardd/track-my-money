@@ -1,7 +1,6 @@
 import "./Filter.css";
 import { useContext, useEffect } from "react";
 import AppContext from "../app-context";
-// import {  } from "../Services/helper";
 import { getFilteredTransactions } from "../Services/helper";
 
 import {
@@ -37,6 +36,8 @@ export function Filter(props) {
     monthlyAverage,
   } = filter;
 
+  let _queries = queries; // Hack: As states seems to be updated in the next cycle I've used a simple variable as it's updates straight away.
+
   const [query, setQuery] = useState("");
   const [title, setTitle] = useState(titleProp);
   const [isValidQuery, setIsValidQuery] = useState(true);
@@ -56,7 +57,7 @@ export function Filter(props) {
   /** options will be merged with filter e.g option param {total: 10} will set the filter.total to 10 */
   const updateFilter = (options = {}) => {
     const filteredTransactions = [
-      ...getFilteredTransactions(filter.queries, transactions),
+      ...getFilteredTransactions(_queries, transactions),
     ];
 
     // Should this maybe use getFilteredTransactionsOther instead?
@@ -76,6 +77,7 @@ export function Filter(props) {
     const newFilter = {
       ...filter,
       ...options,
+      queries: _queries,
       total,
       durationWeeks,
       durationMonths,
@@ -100,6 +102,7 @@ export function Filter(props) {
         return;
       }
 
+      _queries = [query, ...queries];
       updateFilter({ queries: [query, ...queries] });
       setQuery("");
       setIsValidQuery(true);
@@ -113,14 +116,14 @@ export function Filter(props) {
 
   const handleTitleKeyDown = ({ target: el }) => {
     setTitle(el.value);
-    console.log(title);
     const newFilter = { ...filter, title };
     updateFilters(newFilter);
   };
 
   const handleTagClick = ({ target: el }) => {
     const newQueries = queries.filter((q) => q !== el.innerHTML);
-    updateFilter({ newQueries });
+    _queries = newQueries; // hack
+    updateFilter({ queries: newQueries });
   };
 
   const getPercentage = () => {
