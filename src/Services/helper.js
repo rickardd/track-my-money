@@ -91,6 +91,31 @@ const countTotal = (transactions) => {
   return parseFloat(total);
 };
 
+// Usage e.g store.transactions or store.transactions = "my value"
+const store = (function store() {
+  function push(key, data) {
+    window.localStorage.setItem(key, JSON.stringify(data));
+  }
+  function pull(key) {
+    return JSON.parse(window.localStorage.getItem(key));
+  }
+
+  return {
+    get filters() {
+      return pull("filters");
+    },
+    set filters(filters) {
+      push("filters", filters);
+    },
+    get transactions() {
+      return pull("transactions");
+    },
+    set transactions(transactions) {
+      push("transactions", transactions);
+    },
+  };
+})();
+
 export {
   formatMoney,
   countWeeks,
@@ -100,4 +125,5 @@ export {
   getFilteredTransactions,
   getFilteredTransactionsOther,
   countTotal,
+  store,
 };

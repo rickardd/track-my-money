@@ -11,16 +11,17 @@ import {
   countTotal,
   getFilteredTransactions,
   getFilteredTransactionsOther,
+  store,
 } from "./Services/helper";
 
 // ToDo
-// - Updating filter is a step behind.
 // - Prevent transactions appearing in multiple categories
 // - Save to local storage
 // - Graph or over all spending
 // - Trend graph for each filter showing if expenses has gone up or down over time.
 // - Color code filters
 // - Toggle hide main table
+// - Add option to filter remaining transactions
 // - Add toggle highlight to table-modal
 
 function App() {
@@ -55,12 +56,24 @@ function App() {
   };
 
   useEffect(() => {
+    if (store.transactions?.length) {
+      setTransactions(store.transactions);
+    }
+    if (store.filters?.length) {
+      setFilters(store.filters);
+    }
+  }, []);
+
+  useEffect(() => {
+    store.transactions = transactions;
     setTotal(countTotal(transactions));
   }, [transactions]);
 
-  // useEffect(() => {
-  //   console.log("App", filters);
-  // });
+  useEffect(() => {
+    if (filters.length) {
+      store.filters = filters;
+    }
+  }, [filters]);
 
   const handleAddNewCategory = () => {
     const _filters = [
