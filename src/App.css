@@ -6,6 +6,7 @@
 
 body {
   background: #9261a5;
+  padding: 24px;
 }
 
 .color-white {
@@ -59,7 +60,7 @@ header {
   display: flex;
   width: 100%;
   column-gap: 24px;
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 .layout-table {
