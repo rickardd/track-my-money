@@ -133,10 +133,6 @@ export function Filter(props) {
     setShowTableId(`table-${filter.id}`);
   };
 
-  const handleUpdateClick = (e) => {
-    updateFilter();
-  };
-
   return (
     <fieldset className="filter">
       <div className="filter-header">
@@ -205,9 +201,6 @@ export function Filter(props) {
           })}
         </div>
       </div>
-      <button className="update-btn" onClick={handleUpdateClick} type="button">
-        Update
-      </button>
     </fieldset>
   );
 }
