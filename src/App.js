@@ -89,7 +89,7 @@ function App() {
               );
             })()}
 
-          {transactions.length &&
+          {!!transactions.length &&
             (() => {
               return (
                 <>
@@ -120,7 +120,7 @@ function App() {
 
           <div className="layout">
             <div>
-              {transactions.length &&
+              {!!transactions.length &&
                 (() => {
                   return (
                     <>
@@ -143,7 +143,7 @@ function App() {
                 })()}
             </div>
             <div className="layout-table">
-              {transactions.length &&
+              {!!transactions.length &&
                 (() => {
                   return (
                     <Table
