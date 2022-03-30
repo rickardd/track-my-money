@@ -138,7 +138,7 @@ export function Filter(props) {
   };
 
   return (
-    <fieldset>
+    <fieldset className="filter">
       <div className="filter-header">
         <div>
           <input
@@ -146,6 +146,7 @@ export function Filter(props) {
             placeholder="Title"
             value={title}
             onChange={handleTitleKeyDown}
+            className="mr-16"
           />
         </div>
         <div>
@@ -166,18 +167,18 @@ export function Filter(props) {
         </div>
       </div>
       <dl>
+        <dt>Total spending</dt>
+        <dd className="total-spending">{formatMoney(total)}</dd>
         <dt>Time span</dt>
         <dd>
           {durationWeeks} weeks or {durationMonths} months
         </dd>
-        <dt>Total spending</dt>
-        <dd>{formatMoney(total)}</dd>
         <dt>Avg weekly</dt>
         <dd>{weeklyAverage > 0 ? formatMoney(weeklyAverage) : "N/A"}</dd>
         <dt>Avg monthly</dt>
         <dd>{monthlyAverage > 0 ? formatMoney(monthlyAverage) : "N/A"}</dd>
       </dl>
-      <div>
+      <div className="query-container">
         <input
           key={`filter-query-${filter.id}`}
           type="text"
@@ -187,20 +188,22 @@ export function Filter(props) {
           onKeyDown={handleAddQuery}
           onChange={handleQuery}
           autoComplete="off"
-          className={isValidQuery ? "" : "invalid"}
+          className={isValidQuery ? "mr-16" : "invalid mr-16"}
         />
-        {filter.queries.map((query, index) => {
-          return (
-            <button
-              className="tag"
-              key={`filter-query-${filter.id}-${index}`}
-              onClick={handleTagClick}
-              type="button"
-            >
-              {query}
-            </button>
-          );
-        })}
+        <div>
+          {filter.queries.map((query, index) => {
+            return (
+              <button
+                className="tag"
+                key={`filter-query-${filter.id}-${index}`}
+                onClick={handleTagClick}
+                type="button"
+              >
+                {query}
+              </button>
+            );
+          })}
+        </div>
       </div>
       <button className="update-btn" onClick={handleUpdateClick} type="button">
         Update

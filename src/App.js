@@ -100,7 +100,7 @@ function App() {
                           Total: {formatMoney(total)}
                         </span>
                       </h3>
-                      <button onClick={handleAddNewCategory} className="mr-24">
+                      <button onClick={handleAddNewCategory}>
                         Add Category
                       </button>
                       <button

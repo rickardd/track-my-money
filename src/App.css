@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -17,8 +18,12 @@ body {
   margin-right: 12px;
 }
 
+.mr-16 {
+  margin-right: 16px;
+}
+
 .mr-24 {
-  margin-right: 12px;
+  margin-right: 24px;
 }
 
 .App {
@@ -38,7 +43,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  padding: 12px;
+  padding: 12px 24px;
   box-shadow: 0px 13px 33px 0px #0000004f;
   color: black;
 }
@@ -46,10 +51,9 @@ header {
 .header-content {
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
   display: flex;
   column-gap: 12px;
-  align-items: baseline;
+  align-items: center;
 }
 
 .upload-wrapper {
