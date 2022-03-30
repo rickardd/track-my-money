@@ -44,6 +44,7 @@ export function Filter(props) {
 
   useEffect(() => {
     updateFilter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateFilters = (filter) => {
