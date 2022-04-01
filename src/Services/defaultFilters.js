@@ -87,7 +87,7 @@ const defaultFilters = [
     id: `${Math.random()}:${Math.random()}`,
     title: "Exclude",
     total: 0,
-    queries: ["transfer"],
+    queries: [],
     transactions: [],
     exclude: true, // To be implemented
   },

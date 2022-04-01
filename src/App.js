@@ -21,10 +21,19 @@ import {
 // - Color code filters
 // - Toggle hide main table
 // - Add toggle highlight to table-modal
+// - Add exclude filter
+//    - Subtract transactions from total count
+//    - Remove from remaining table.
+// - Mobile friendly
+// - Handle different banks
+// - Rename TableOther to remainingTable
 
 function App() {
   const [transactions, setTransactions] = useState([]);
-  const [filters, setFilters] = useState([defaultFilters[0]]);
+  const [filters, setFilters] = useState([
+    defaultFilters[defaultFilters.length - 1],
+    defaultFilters[0],
+  ]);
   const [total, setTotal] = useState(0);
   const [showTableId, setShowTableId] = useState(null); // Used to open the modal
   const [tableHighlight, setTableHighlight] = useState("");
