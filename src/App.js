@@ -16,12 +16,10 @@ import {
 } from "./Services/helper";
 
 // ToDo
-// - Prevent transactions appearing in multiple categories
 // - Graph or over all spending
 // - Trend graph for each filter showing if expenses has gone up or down over time.
 // - Color code filters
 // - Toggle hide main table
-// - Add option to filter remaining transactions
 // - Add toggle highlight to table-modal
 
 function App() {
@@ -33,6 +31,8 @@ function App() {
   const [enableTableHighlight, setEnableTableHighlight] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [persistStore, setPersistStore] = useState(false);
+  const [enableTableFiltering, setEnableTableFiltering] = useState(false);
+  const [currentQuery, setCurrentQuery] = useState("");
 
   const data = {
     transactions,
@@ -47,6 +47,10 @@ function App() {
     setTableHighlight,
     enableTableHighlight,
     setEnableTableHighlight,
+    enableTableFiltering,
+    setEnableTableFiltering,
+    currentQuery,
+    setCurrentQuery,
   };
 
   useEffect(() => {
@@ -123,8 +127,17 @@ function App() {
                       >
                         {enableTableHighlight ? "Disable" : "Enable"} Highlight
                       </button>
-
                       <Upload button={true} />
+                      <label>
+                        Enable Filter:&nbsp;
+                        <input
+                          type="checkbox"
+                          value={enableTableFiltering}
+                          onChange={({ target: el }) =>
+                            setEnableTableFiltering(el.checked)
+                          }
+                        />
+                      </label>
                     </div>
                   </header>
                 </>

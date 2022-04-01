@@ -24,6 +24,7 @@ export function Filter(props) {
     setShowTableId,
     total: allTotal,
     setTableHighlight,
+    setCurrentQuery,
   } = useContext(AppContext);
 
   const { filter } = props;
@@ -110,6 +111,7 @@ export function Filter(props) {
       _queries = [query, ...queries];
       updateFilter({ queries: [query, ...queries] });
       setQuery("");
+      setCurrentQuery("");
       setIsValidQuery(true);
     }
   };
@@ -117,6 +119,7 @@ export function Filter(props) {
   const handleQuery = ({ target: el, key }) => {
     setQuery(el.value);
     setTableHighlight(el.value);
+    setCurrentQuery(el.value);
   };
 
   const handleTitleKeyDown = ({ target: el }) => {

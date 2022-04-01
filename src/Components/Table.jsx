@@ -15,6 +15,8 @@ export function Table(props) {
     showTableId,
     tableHighlight,
     enableTableHighlight,
+    enableTableFiltering,
+    currentQuery,
   } = useContext(AppContext);
 
   const { id, isModal, transactions } = props;
@@ -59,6 +61,17 @@ export function Table(props) {
     return data[TRANSACTION_TEXT];
   };
 
+  const getTransactions = () => {
+    if (enableTableFiltering) {
+      return transactions.filter((t) => {
+        return t[TRANSACTION_TEXT].toLowerCase().includes(
+          currentQuery.toLowerCase()
+        );
+      });
+    }
+    return transactions;
+  };
+
   return (
     <div className={getWrapperClass()}>
       {tableTitle &&
@@ -86,7 +99,7 @@ export function Table(props) {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((data, index) => {
+          {getTransactions().map((data, index) => {
             return (
               <tr key={`tr-${index}`}>
                 <td>{data[TRANSACTION_DATE]}</td>
