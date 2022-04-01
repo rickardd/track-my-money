@@ -44,13 +44,9 @@ export function Upload(props) {
     };
 
     reader.onerror = () => {
-      console.log(reader.error);
+      console.error(reader.error);
     };
   };
-
-  // onSubmit = ({ target: el }) => {
-  //   console.log(el);
-  // };
 
   return (
     <div>

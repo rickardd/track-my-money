@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { AppProvider } from "./app-context";
 import { Upload } from "./Components/Upload";
 import { Filters } from "./Components/Filters";
+import { defaultFilters } from "./Services/defaultFilters";
 import { Table } from "./Components/Table";
 import {
   formatMoney,
@@ -25,20 +26,13 @@ import {
 // - Add toggle highlight to table-modal
 
 function App() {
-  const defaultFilter = {
-    id: `${Math.random()}:${Math.random()}`,
-    title: "Groceries",
-    total: 0,
-    queries: ["new world", "countdown", "four square", "pak n save"],
-    transactions: [],
-  };
-
   const [transactions, setTransactions] = useState([]);
-  const [filters, setFilters] = useState([defaultFilter]);
+  const [filters, setFilters] = useState(defaultFilters[0]);
   const [total, setTotal] = useState(0);
   const [showTableId, setShowTableId] = useState(null); // Used to open the modal
   const [tableHighlight, setTableHighlight] = useState("");
   const [enableTableHighlight, setEnableTableHighlight] = useState(false);
+  const [persistStore, setPersistStore] = useState(false);
 
   const data = {
     transactions,
@@ -56,16 +50,20 @@ function App() {
   };
 
   useEffect(() => {
-    if (store.transactions?.length) {
-      setTransactions(store.transactions);
-    }
-    if (store.filters?.length) {
-      setFilters(store.filters);
+    if (persistStore) {
+      if (store.transactions?.length) {
+        setTransactions(store.transactions);
+      }
+      if (store.filters?.length) {
+        setFilters(store.filters);
+      }
     }
   }, []);
 
   useEffect(() => {
-    store.transactions = transactions;
+    if (persistStore) {
+      store.transactions = transactions;
+    }
     setTotal(countTotal(transactions));
   }, [transactions]);
 

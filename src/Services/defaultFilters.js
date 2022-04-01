@@ -1,0 +1,96 @@
+const defaultFilters = [
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Groceries",
+    total: 0,
+    queries: ["new world", "countdown", "four square", "pak n save"],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Subscriptions",
+    total: 0,
+    queries: ["spotify", "google"],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Restaurants",
+    total: 0,
+    queries: ["sushi"],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Cafe",
+    total: 0,
+    queries: ["cafe"],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Household",
+    total: 0,
+    queries: [],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Rent",
+    total: 0,
+    queries: ["rent"],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Public Transport",
+    total: 0,
+    queries: [],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Parking",
+    total: 0,
+    queries: [],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Gym And Health",
+    total: 0,
+    queries: ["milford", "yoga"],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Entertainment",
+    total: 0,
+    queries: [],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Electronics",
+    total: 0,
+    queries: ["harvey norman"],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Phone Providers",
+    total: 0,
+    queries: ["vodafone"],
+    transactions: [],
+  },
+  {
+    id: `${Math.random()}:${Math.random()}`,
+    title: "Exclude",
+    total: 0,
+    queries: ["transfer"],
+    transactions: [],
+    exclude: true, // To be implemented
+  },
+];
+
+export { defaultFilters };

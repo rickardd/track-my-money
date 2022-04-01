@@ -7,10 +7,6 @@ import AppContext from "../app-context";
 export function Filters() {
   const { filters, transactions } = useContext(AppContext);
 
-  // useEffect(() => {
-  //   console.log("Filters", filters);
-  // });
-
   return (
     <>
       {transactions.length > 0 && (

@@ -52,7 +52,6 @@ export function Filter(props) {
     const newFilters = [...filters];
     newFilters[index] = filter;
     setFilters(newFilters);
-    console.log("Update Filter", filters, newFilters);
   };
 
   /** options will be merged with filter e.g option param {total: 10} will set the filter.total to 10 */
