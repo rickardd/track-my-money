@@ -25,7 +25,6 @@ import {
 //    - Subtract transactions from total count
 //    - Remove from remaining table.
 // - Mobile friendly
-// - Handle different banks
 // - Rename TableOther to remainingTable
 
 function App() {

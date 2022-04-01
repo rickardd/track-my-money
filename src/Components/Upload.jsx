@@ -1,9 +1,22 @@
 import { useContext } from "react";
 import AppContext from "../app-context";
+import { bank, BANKS, KIWI_BANK, ASB_BANK } from "../settings.js";
 
 export function Upload(props) {
   const { setTransactions } = useContext(AppContext);
   const { button } = props;
+
+  const getCsvHeader = (data) => {
+    return data.trim().split("\n")[0];
+  };
+
+  const guessBankByCsvHeader = (header) => {
+    if (BANKS.ASB_BANK.HEADER_REGEX.test(header)) {
+      return ASB_BANK;
+    } else if (BANKS.KIWI_BANK.HEADER_REGEX.test(header)) {
+      return KIWI_BANK;
+    }
+  };
 
   const convertToJson = (data) => {
     let arr = [];
@@ -24,6 +37,26 @@ export function Upload(props) {
     return arr;
   };
 
+  const normalizeJson = (json, bankId) => {
+    if (bankId === KIWI_BANK) {
+      return json.map((row) => [
+        row[bank(bankId).TRANSACTION_DATE],
+        row[bank(bankId).TRANSACTION_TEXT],
+        row[bank(bankId).TRANSACTION_VALUE],
+      ]);
+    }
+    if (bankId === ASB_BANK) {
+      return json.map((row) => [
+        row[bank(bankId).TRANSACTION_DATE],
+        `
+          ${row[bank(bankId).TRANSACTION_PAYEE]}: 
+          ${row[bank(bankId).TRANSACTION_TEXT]}
+        `,
+        row[bank(bankId).TRANSACTION_VALUE],
+      ]);
+    }
+  };
+
   const onFileChange = ({ target: el }) => {
     //   const { onFileChange } = this.props;
 
@@ -33,8 +66,10 @@ export function Upload(props) {
 
     reader.onload = () => {
       try {
-        const transactions = convertToJson(reader.result);
-        // onFileChange(transactions);
+        const csvHeader = getCsvHeader(reader.result);
+        const bankId = guessBankByCsvHeader(csvHeader);
+        const transactionsJson = convertToJson(reader.result);
+        const transactions = normalizeJson(transactionsJson, bankId);
         setTransactions(transactions);
       } catch (error) {
         alert(
@@ -57,7 +92,6 @@ export function Upload(props) {
         data-button={button}
         onChange={onFileChange}
       />
-      {/* <input type="button" defaultValue="Submit" onClick={this.onSubmit} /> */}
     </div>
   );
 }
