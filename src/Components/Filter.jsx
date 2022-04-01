@@ -1,7 +1,10 @@
 import "./Filter.css";
 import { useContext, useEffect } from "react";
 import AppContext from "../app-context";
-import { getFilteredTransactions } from "../Services/helper";
+import {
+  getFilteredTransactions,
+  getFilteredTransactionsOther,
+} from "../Services/helper";
 
 import {
   formatMoney,
@@ -89,9 +92,13 @@ export function Filter(props) {
 
   const handleAddQuery = ({ target: el, key }) => {
     if (key === "Enter") {
+      const remainingTransactions = getFilteredTransactionsOther(
+        transactions,
+        filters
+      );
       const filteredTransactions = getFilteredTransactions(
         [query],
-        transactions // This should filter on remaining transactions. This should prevent the user to add pointless queries as well as duplicated queries.
+        remainingTransactions
       );
 
       if (!filteredTransactions.length) {
