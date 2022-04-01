@@ -17,7 +17,6 @@ import {
 
 // ToDo
 // - Prevent transactions appearing in multiple categories
-// - Save to local storage
 // - Graph or over all spending
 // - Trend graph for each filter showing if expenses has gone up or down over time.
 // - Color code filters
@@ -27,11 +26,12 @@ import {
 
 function App() {
   const [transactions, setTransactions] = useState([]);
-  const [filters, setFilters] = useState(defaultFilters[0]);
+  const [filters, setFilters] = useState([defaultFilters[0]]);
   const [total, setTotal] = useState(0);
   const [showTableId, setShowTableId] = useState(null); // Used to open the modal
   const [tableHighlight, setTableHighlight] = useState("");
   const [enableTableHighlight, setEnableTableHighlight] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [persistStore, setPersistStore] = useState(false);
 
   const data = {
@@ -58,6 +58,7 @@ function App() {
         setFilters(store.filters);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -65,6 +66,7 @@ function App() {
       store.transactions = transactions;
     }
     setTotal(countTotal(transactions));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transactions]);
 
   useEffect(() => {
