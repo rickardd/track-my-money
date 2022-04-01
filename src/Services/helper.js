@@ -1,14 +1,9 @@
 import moment from "moment";
-// import {
-//   TRANSACTION_DATE,
-//   TRANSACTION_TEXT,
-//   TRANSACTION_VALUE,
-// } from "../settings";
-
-// TODO: Make above import work and remove this
-const TRANSACTION_DATE = 0;
-const TRANSACTION_TEXT = 1;
-const TRANSACTION_VALUE = 3;
+import {
+  TRANSACTION_DATE,
+  TRANSACTION_TEXT,
+  TRANSACTION_VALUE,
+} from "../settings";
 
 const formatMoney = (value) => {
   var formatter = new Intl.NumberFormat("en-US", {
