@@ -125,9 +125,6 @@ function App() {
                           Total: {formatMoney(total)}
                         </span>
                       </h3>
-                      <button onClick={handleAddNewCategory}>
-                        Add Category
-                      </button>
                       <button
                         onClick={() =>
                           setEnableTableHighlight(!enableTableHighlight)
@@ -175,6 +172,14 @@ function App() {
                     </>
                   );
                 })()}
+              <div className="flex justify-center">
+                <button
+                  onClick={handleAddNewCategory}
+                  className="button-circle"
+                >
+                  +
+                </button>
+              </div>
             </div>
             <div className="layout-table">
               {!!transactions.length &&
