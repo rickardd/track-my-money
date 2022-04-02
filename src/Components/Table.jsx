@@ -27,7 +27,7 @@ export function Table(props) {
 
   const getWrapperClass = () => {
     let wrapperClass =
-      showTableId === id && showTableId !== null ? "open-modal" : "hide";
+      showTableId === id && showTableId !== null ? "modal open-modal" : "hide";
 
     return isModal ? wrapperClass : null;
   };

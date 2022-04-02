@@ -171,6 +171,7 @@ function App() {
                           <Table
                             key={`table-id-${filter.id}`}
                             id={`table-${filter.id}`}
+                            tableTitle={filter.title}
                             transactions={getFilteredTransactions(
                               filter.queries,
                               transactions

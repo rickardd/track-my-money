@@ -167,7 +167,11 @@ export function Filter(props) {
           </div>
         </div>
         <div>
-          <button type="button" onClick={handleShowTransactions}>
+          <button
+            type="button"
+            onClick={handleShowTransactions}
+            disabled={!filter.transactions.length}
+          >
             Transactions
           </button>
         </div>
