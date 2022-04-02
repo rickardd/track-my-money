@@ -155,7 +155,17 @@ function App() {
                 (() => {
                   return (
                     <>
-                      <Filters />
+                      <div>
+                        <Filters />
+                        <div className="flex justify-center">
+                          <button
+                            onClick={handleAddNewCategory}
+                            className="button-circle"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
                       {filters.map((filter, index) => {
                         return (
                           <Table
@@ -172,14 +182,6 @@ function App() {
                     </>
                   );
                 })()}
-              <div className="flex justify-center">
-                <button
-                  onClick={handleAddNewCategory}
-                  className="button-circle"
-                >
-                  +
-                </button>
-              </div>
             </div>
             <div className="layout-table">
               {!!transactions.length &&
@@ -187,7 +189,8 @@ function App() {
                   return (
                     <Table
                       key={`table-id-other`}
-                      tableTitle=""
+                      tableTitle="Remain transactions"
+                      tableParagraph="These are uncategorized transactions. Add queries to the filters. When this table is empty all transactions has been categories"
                       transactions={getFilteredTransactionsOther(
                         transactions,
                         filters

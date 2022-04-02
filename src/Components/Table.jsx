@@ -7,11 +7,11 @@ import {
   TRANSACTION_VALUE,
 } from "../settings.js";
 
+import { countTotal } from "../Services/helper";
+
 export function Table(props) {
   const {
-    tableTitle,
     setShowTableId,
-    total,
     showTableId,
     tableHighlight,
     enableTableHighlight,
@@ -19,7 +19,7 @@ export function Table(props) {
     currentQuery,
   } = useContext(AppContext);
 
-  const { id, isModal, transactions } = props;
+  const { id, tableTitle, tableParagraph, isModal, transactions } = props;
 
   const handleClose = () => {
     setShowTableId(null);
@@ -77,9 +77,16 @@ export function Table(props) {
       {tableTitle &&
         (() => {
           return (
-            <h3 style={{ marginBottom: "6px" }}>
-              {tableTitle} - ${total}
-            </h3>
+            <>
+              <h3
+                style={{ marginBottom: "6px" }}
+                className="flex space-between"
+              >
+                <div>{tableTitle}</div>
+                <div>${countTotal(transactions)}</div>
+              </h3>
+              <p className="table-paragraph">{tableParagraph}</p>
+            </>
           );
         })()}
 
