@@ -183,23 +183,23 @@ function App() {
                   );
                 })()}
             </div>
-            <div className="layout-table">
-              {!!transactions.length &&
-                (() => {
-                  return (
+            {!!transactions.length &&
+              (() => {
+                return (
+                  <div className="layout-table">
                     <Table
                       key={`table-id-other`}
                       tableTitle="Remain transactions"
-                      tableParagraph="These are uncategorized transactions. Add queries to the filters. When this table is empty all transactions has been categories"
+                      tableParagraph="These are uncategorized transactions. When this table is empty all transactions has been categories"
                       transactions={getFilteredTransactionsOther(
                         transactions,
                         filters
                       )}
                       isModal={false}
                     />
-                  );
-                })()}
-            </div>
+                  </div>
+                );
+              })()}
           </div>
         </div>
       </AppProvider>
