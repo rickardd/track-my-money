@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { AppProvider } from "./app-context";
 import { Upload } from "./Components/Upload";
 import { Filters } from "./Components/Filters";
+
 import { defaultFilters } from "./Services/defaultFilters";
 import { Table } from "./Components/Table";
 import {
@@ -12,6 +13,7 @@ import {
   countTotal,
   getFilteredTransactions,
   getFilteredTransactionsOther,
+  getRelevantTransactions,
   store,
 } from "./Services/helper";
 
@@ -41,6 +43,7 @@ function App() {
   const [persistStore, setPersistStore] = useState(false);
   const [enableTableFiltering, setEnableTableFiltering] = useState(false);
   const [currentQuery, setCurrentQuery] = useState("");
+  const [excludeQueries, setExcludeQueries] = useState([]);
 
   const data = {
     transactions,
@@ -59,6 +62,8 @@ function App() {
     setEnableTableFiltering,
     currentQuery,
     setCurrentQuery,
+    excludeQueries,
+    setExcludeQueries,
   };
 
   useEffect(() => {
@@ -77,7 +82,7 @@ function App() {
     if (persistStore) {
       store.transactions = transactions;
     }
-    setTotal(countTotal(transactions));
+    updateTotal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transactions]);
 
@@ -85,7 +90,17 @@ function App() {
     if (filters.length) {
       store.filters = filters;
     }
+    updateTotal();
   }, [filters]);
+
+  const updateTotal = () => {
+    const relevantTransactions = getRelevantTransactions(
+      excludeQueries,
+      transactions
+    );
+
+    setTotal(countTotal(relevantTransactions));
+  };
 
   const handleAddNewCategory = () => {
     const _filters = [

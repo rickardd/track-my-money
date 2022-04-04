@@ -7,7 +7,7 @@ import {
   TRANSACTION_VALUE,
 } from "../settings.js";
 
-import { countTotal } from "../Services/helper";
+import { countTotal, formatMoney } from "../Services/helper";
 
 export function Table(props) {
   const {
@@ -83,7 +83,7 @@ export function Table(props) {
                 className="flex space-between"
               >
                 <div>{tableTitle}</div>
-                <div>${countTotal(transactions)}</div>
+                <div>{formatMoney(countTotal(transactions))}</div>
               </h3>
               <p className="table-paragraph">{tableParagraph}</p>
             </>

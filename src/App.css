@@ -180,6 +180,8 @@ button:disabled {
 }
 button:hover:disabled {
   cursor: not-allowed;
+  background: #a6c1e5;
+  border-color: #76aef7;
 }
 
 button:hover {

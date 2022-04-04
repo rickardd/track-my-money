@@ -71,6 +71,17 @@ const getFilteredTransactionsOther = (transactions, filters) => {
   });
 };
 
+const getRelevantTransactions = (excludeQueries, transactions) => {
+  return transactions.filter((t) => {
+    return !excludeQueries.find((q) => {
+      return (
+        t[TRANSACTION_TEXT] &&
+        t[TRANSACTION_TEXT].toLowerCase().includes(q.toLowerCase())
+      );
+    });
+  });
+};
+
 const countTotal = (transactions) => {
   if (!transactions) {
     return 0;
@@ -119,6 +130,7 @@ export {
   getMonthlyAverage,
   getFilteredTransactions,
   getFilteredTransactionsOther,
+  getRelevantTransactions,
   countTotal,
   store,
 };
