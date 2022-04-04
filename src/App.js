@@ -91,6 +91,7 @@ function App() {
       store.filters = filters;
     }
     updateTotal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
   const updateTotal = () => {

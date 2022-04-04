@@ -22,7 +22,6 @@ export function ExcludeFilter(props) {
     setFilters,
     transactions,
     setShowTableId,
-    total: allTotal,
     setTableHighlight,
     setCurrentQuery,
     excludeQueries,
