@@ -38,7 +38,7 @@ function App() {
   const [tableHighlight, setTableHighlight] = useState("");
   const [enableTableHighlight, setEnableTableHighlight] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [persistStore, setPersistStore] = useState(false);
+  const [persistStore, setPersistStore] = useState(store.hasRecords());
   const [enableTableFiltering, setEnableTableFiltering] = useState(false);
   const [currentQuery, setCurrentQuery] = useState("");
   const [excludeQueries, setExcludeQueries] = useState([]);
@@ -62,10 +62,12 @@ function App() {
     setCurrentQuery,
     excludeQueries,
     setExcludeQueries,
+    persistStore,
+    setPersistStore,
   };
 
   useEffect(() => {
-    if (persistStore) {
+    if (store.hasRecords()) {
       if (store.transactions?.length) {
         setTransactions(store.transactions);
       }
@@ -85,12 +87,22 @@ function App() {
   }, [transactions]);
 
   useEffect(() => {
-    if (filters.length) {
+    if (persistStore) {
       store.filters = filters;
     }
     updateTotal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
+
+  useEffect(() => {
+    if (persistStore) {
+      store.filters = filters;
+      store.transactions = transactions;
+    } else {
+      store.clear();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [persistStore]);
 
   const updateTotal = () => {
     const relevantTransactions = getRelevantTransactions(
@@ -140,6 +152,16 @@ function App() {
                         </span>
                       </h3>
                       <Upload button={true} />
+                      <label className="mr-24">
+                        Persist: &nbsp;
+                        <input
+                          type="checkbox"
+                          checked={persistStore}
+                          onChange={({ target: el }) =>
+                            setPersistStore(el.checked)
+                          }
+                        />
+                      </label>
                     </div>
                   </header>
                 </>

@@ -105,6 +105,9 @@ const store = (function store() {
   function pull(key) {
     return JSON.parse(window.localStorage.getItem(key));
   }
+  function remove(key) {
+    window.localStorage.removeItem(key);
+  }
 
   return {
     get filters() {
@@ -118,6 +121,14 @@ const store = (function store() {
     },
     set transactions(transactions) {
       push("transactions", transactions);
+    },
+    clear() {
+      remove("filters");
+      remove("transactions");
+    },
+    hasRecords() {
+      // debugger;
+      return !!(pull("transactions") && pull("filters"));
     },
   };
 })();
