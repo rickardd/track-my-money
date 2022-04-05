@@ -16,6 +16,8 @@ export function Table(props) {
     tableHighlight,
     enableTableHighlight,
     enableTableFiltering,
+    setEnableTableFiltering,
+    setEnableTableHighlight,
     currentQuery,
   } = useContext(AppContext);
 
@@ -101,7 +103,31 @@ export function Table(props) {
         <thead>
           <tr>
             <th>Date</th>
-            <th>Statement</th>
+            <th className="table-statement">
+              <span>Statement</span>
+              <div>
+                <label className="mr-24">
+                  Filter:&nbsp;
+                  <input
+                    type="checkbox"
+                    value={enableTableFiltering}
+                    onChange={({ target: el }) =>
+                      setEnableTableFiltering(el.checked)
+                    }
+                  />
+                </label>
+                <label>
+                  Highlight:&nbsp;
+                  <input
+                    type="checkbox"
+                    value={enableTableHighlight}
+                    onChange={() =>
+                      setEnableTableHighlight(!enableTableHighlight)
+                    }
+                  />
+                </label>
+              </div>
+            </th>
             <th>Value</th>
           </tr>
         </thead>

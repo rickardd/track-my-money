@@ -135,6 +135,27 @@ tr:nth-child(odd) {
   font-size: 0.8rem;
 }
 
+.table-statement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-statement label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.table-statement label:hover {
+  cursor: pointer;
+}
+
+.table-statement input {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
 input {
   border: 1px solid gray;
   padding: 3px;

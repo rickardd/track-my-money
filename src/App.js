@@ -23,11 +23,9 @@ import {
 // - Color code filters
 // - Toggle hide main table
 // - Add toggle highlight to table-modal
-// - Add exclude filter
-//    - Subtract transactions from total count
-//    - Remove from remaining table.
 // - Mobile friendly
 // - Rename TableOther to remainingTable
+// - PWA
 
 function App() {
   const [transactions, setTransactions] = useState([]);
@@ -141,24 +139,7 @@ function App() {
                           Total: {formatMoney(total)}
                         </span>
                       </h3>
-                      <button
-                        onClick={() =>
-                          setEnableTableHighlight(!enableTableHighlight)
-                        }
-                      >
-                        {enableTableHighlight ? "Disable" : "Enable"} Highlight
-                      </button>
                       <Upload button={true} />
-                      <label>
-                        Enable Filter:&nbsp;
-                        <input
-                          type="checkbox"
-                          value={enableTableFiltering}
-                          onChange={({ target: el }) =>
-                            setEnableTableFiltering(el.checked)
-                          }
-                        />
-                      </label>
                     </div>
                   </header>
                 </>
