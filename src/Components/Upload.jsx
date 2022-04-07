@@ -1,6 +1,15 @@
 import { useContext } from "react";
 import AppContext from "../app-context";
-import { bank, BANKS, KIWI_BANK, ASB_BANK, WESTPAC_BANK } from "../settings.js";
+import {
+  bank,
+  BANKS,
+  KIWI_BANK,
+  ASB_BANK,
+  WESTPAC_BANK,
+  TRANSACTION_DATE,
+  TRANSACTION_TEXT,
+  TRANSACTION_VALUE,
+} from "../settings.js";
 
 export function Upload(props) {
   const { setTransactions } = useContext(AppContext);
@@ -39,12 +48,18 @@ export function Upload(props) {
     return arr;
   };
 
+  const getExpenses = (transactions) => {
+    return transactions.filter(
+      (transaction) => transaction[TRANSACTION_VALUE] < 0
+    );
+  };
+
   const normalizeJson = (json, bankId) => {
     if (bankId === KIWI_BANK) {
       return json.map((row) => [
         row[bank(bankId).TRANSACTION_DATE],
         row[bank(bankId).TRANSACTION_TEXT],
-        row[bank(bankId).TRANSACTION_VALUE],
+        parseFloat(row[bank(bankId).TRANSACTION_VALUE]),
       ]);
     }
     if (bankId === ASB_BANK) {
@@ -54,7 +69,7 @@ export function Upload(props) {
           ${row[bank(bankId).TRANSACTION_PAYEE]}: 
           ${row[bank(bankId).TRANSACTION_TEXT]}
         `,
-        row[bank(bankId).TRANSACTION_VALUE],
+        parseFloat(row[bank(bankId).TRANSACTION_VALUE]),
       ]);
     }
     if (bankId === WESTPAC_BANK) {
@@ -65,7 +80,7 @@ export function Upload(props) {
           [${row[BANKS[bankId].COLUMNS.TRANSACTION_DESCRIPTION]}]
           (${row[BANKS[bankId].COLUMNS.TRANSACTION_PARTICULARS]})
         `,
-        row[BANKS[bankId].COLUMNS.TRANSACTION_VALUE],
+        parseFloat(row[BANKS[bankId].COLUMNS.TRANSACTION_VALUE]),
       ]);
     }
   };
@@ -82,7 +97,8 @@ export function Upload(props) {
         const csvHeader = getCsvHeader(reader.result);
         const bankId = guessBankByCsvHeader(csvHeader);
         const transactionsJson = convertToJson(reader.result);
-        const transactions = normalizeJson(transactionsJson, bankId);
+        let transactions = normalizeJson(transactionsJson, bankId);
+        transactions = getExpenses(transactions);
         setTransactions(transactions);
       } catch (error) {
         alert(
