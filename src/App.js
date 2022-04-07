@@ -26,6 +26,10 @@ import {
 // - Mobile friendly
 // - Rename TableOther to remainingTable
 // - PWA
+// - Upload modal
+//   - Ask merge with existing transactions or overwrite
+//   - Aks if it's a shared account, divide by number of people.
+// - Make react work with multiple default filters.
 
 function App() {
   const [transactions, setTransactions] = useState([]);
