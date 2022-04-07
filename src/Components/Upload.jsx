@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import AppContext from "../app-context";
-import { bank, BANKS, KIWI_BANK, ASB_BANK } from "../settings.js";
+import { bank, BANKS, KIWI_BANK, ASB_BANK, WESTPAC_BANK } from "../settings.js";
 
 export function Upload(props) {
   const { setTransactions } = useContext(AppContext);
@@ -15,6 +15,8 @@ export function Upload(props) {
       return ASB_BANK;
     } else if (BANKS.KIWI_BANK.HEADER_REGEX.test(header)) {
       return KIWI_BANK;
+    } else if (BANKS.WESTPAC_BANK.HEADER_REGEX.test(header)) {
+      return WESTPAC_BANK;
     }
   };
 
@@ -53,6 +55,17 @@ export function Upload(props) {
           ${row[bank(bankId).TRANSACTION_TEXT]}
         `,
         row[bank(bankId).TRANSACTION_VALUE],
+      ]);
+    }
+    if (bankId === WESTPAC_BANK) {
+      return json.map((row) => [
+        row[BANKS[bankId].COLUMNS.TRANSACTION_DATE],
+        `
+          ${row[BANKS[bankId].COLUMNS.TRANSACTION_OTHER_PARTY]}:
+          [${row[BANKS[bankId].COLUMNS.TRANSACTION_DESCRIPTION]}]
+          (${row[BANKS[bankId].COLUMNS.TRANSACTION_PARTICULARS]})
+        `,
+        row[BANKS[bankId].COLUMNS.TRANSACTION_VALUE],
       ]);
     }
   };

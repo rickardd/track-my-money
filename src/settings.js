@@ -1,5 +1,6 @@
 const KIWI_BANK = "KIWI_BANK";
 const ASB_BANK = "ASB_BANK";
+const WESTPAC_BANK = "WESTPAC_BANK";
 
 const BANKS = {
   KIWI_BANK: {
@@ -17,6 +18,17 @@ const BANKS = {
       TRANSACTION_PAYEE: 4,
       TRANSACTION_TEXT: 5,
       TRANSACTION_VALUE: 6,
+    },
+  },
+  WESTPAC_BANK: {
+    HEADER_REGEX:
+      /Date,Amount,Other Party,Description,Reference,Particulars,Analysis Code/,
+    COLUMNS: {
+      TRANSACTION_DATE: 0,
+      TRANSACTION_VALUE: 1,
+      TRANSACTION_OTHER_PARTY: 2,
+      TRANSACTION_DESCRIPTION: 3,
+      TRANSACTION_PARTICULARS: 5,
     },
   },
 };
@@ -46,6 +58,7 @@ const TRANSACTION_VALUE = 2;
 export {
   KIWI_BANK,
   ASB_BANK,
+  WESTPAC_BANK,
   TRANSACTION_DATE,
   TRANSACTION_TEXT,
   TRANSACTION_VALUE,
