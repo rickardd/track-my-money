@@ -6,8 +6,6 @@ import {
   KIWI_BANK,
   ASB_BANK,
   WESTPAC_BANK,
-  TRANSACTION_DATE,
-  TRANSACTION_TEXT,
   TRANSACTION_VALUE,
 } from "../settings.js";
 
