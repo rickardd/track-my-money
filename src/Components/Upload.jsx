@@ -6,6 +6,7 @@ import {
   KIWI_BANK,
   ASB_BANK,
   WESTPAC_BANK,
+  ANZ_BANK,
   TRANSACTION_VALUE,
 } from "../settings.js";
 
@@ -24,6 +25,8 @@ export function Upload(props) {
       return KIWI_BANK;
     } else if (BANKS.WESTPAC_BANK.HEADER_REGEX.test(header)) {
       return WESTPAC_BANK;
+    } else if (BANKS.ANZ_BANK.HEADER_REGEX.test(header)) {
+      return ANZ_BANK;
     }
   };
 
@@ -77,6 +80,17 @@ export function Upload(props) {
           ${row[BANKS[bankId].COLUMNS.TRANSACTION_OTHER_PARTY]}:
           [${row[BANKS[bankId].COLUMNS.TRANSACTION_DESCRIPTION]}]
           (${row[BANKS[bankId].COLUMNS.TRANSACTION_PARTICULARS]})
+        `,
+        parseFloat(row[BANKS[bankId].COLUMNS.TRANSACTION_VALUE]),
+      ]);
+    }
+    if (bankId === ANZ_BANK) {
+      return json.map((row) => [
+        row[BANKS[bankId].COLUMNS.TRANSACTION_DATE],
+        `
+          ${row[BANKS[bankId].COLUMNS.TRANSACTION_TYPE]}:
+          [${row[BANKS[bankId].COLUMNS.TRANSACTION_DETAILS]}]
+          (${row[BANKS[bankId].COLUMNS.TRANSACTION_CODE]})
         `,
         parseFloat(row[BANKS[bankId].COLUMNS.TRANSACTION_VALUE]),
       ]);
