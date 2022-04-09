@@ -21,8 +21,8 @@ const countWeeks = (transactions) => {
   const startDate = transactions[0][TRANSACTION_DATE];
   const endDate = transactions[transactions.length - 1][TRANSACTION_DATE];
 
-  const a = moment.utc(startDate, "DD MMM YYYY");
-  const b = moment.utc(endDate, "DD MMM YYYY");
+  const a = moment(startDate, "DD MMM YYYY", "en-nz");
+  const b = moment(endDate, "DD MMM YYYY", "en-nz");
 
   return parseFloat(a.diff(b, "weeks"));
 };
@@ -33,8 +33,8 @@ const countMonths = (transactions) => {
   const startDate = transactions[0][TRANSACTION_DATE];
   const endDate = transactions[transactions.length - 1][TRANSACTION_DATE];
 
-  const a = moment.utc(startDate, "DD MMM YYYY");
-  const b = moment.utc(endDate, "DD MMM YYYY");
+  const a = moment(startDate, "DD MMM YYYY", "en-nz");
+  const b = moment(endDate, "DD MMM YYYY", "en-nz");
 
   return parseFloat(a.diff(b, "months"));
 };
