@@ -57,7 +57,8 @@ export function Table(props) {
   };
 
   const getStatement = (data) => {
-    if (enableTableHighlight) {
+    if (enableTableHighlight && currentQuery.length > 1) {
+      // currentQuery.length is a performance fix
       return getHighlightedText(data[TRANSACTION_TEXT], tableHighlight);
     }
     return data[TRANSACTION_TEXT];
