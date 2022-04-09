@@ -96,9 +96,9 @@ export function Table(props) {
       <button
         type="button"
         onClick={handleClose}
-        className={isModal ? null : "hide"}
+        className={isModal ? "button-close" : "hide"}
       >
-        Close
+        x
       </button>
       <table>
         <thead>

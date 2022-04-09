@@ -217,3 +217,14 @@ button:hover {
   box-shadow: 0 4px 4px rgb(0 0 0 / 50%);
   font-size: 24px;
 }
+
+/* for use in modals */
+.button-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 2px;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+}
