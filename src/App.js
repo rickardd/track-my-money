@@ -18,19 +18,21 @@ import {
 } from "./Services/helper";
 
 // ToDo
-// - Graph or over all spending
-// - Trend graph for each filter showing if expenses has gone up or down over time.
-// - Color code filters
+
+// - Upload modal
+//   - Ask merge with existing transactions or overwrite
+//   - Ask if it's a shared account, divide by number of people.
 // - Toggle hide main table
 // - Add toggle highlight to table-modal
 // - Mobile friendly
 // - Rename TableOther to remainingTable
-// - PWA
-// - Upload modal
-//   - Ask merge with existing transactions or overwrite
-//   - Aks if it's a shared account, divide by number of people.
 // - Make react work with multiple default filters.
-// Ensure dates works for all banks and is NZ time zone
+// - Graphs
+//    - over-all spending
+//    - Trend graph for each filter
+// - Color code filters
+// - PWA
+// - Add links to the web
 
 function App() {
   const [transactions, setTransactions] = useState([]);
