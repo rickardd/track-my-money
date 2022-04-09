@@ -115,8 +115,8 @@ export function Upload(props) {
 
   const sortTransactions = (transactions) => {
     if (transactions <= 1) return transactions;
-    const firstDate = transactions[0][TRANSACTION_DATE];
-    const lastDate = transactions[transactions.length - 1][TRANSACTION_DATE];
+    const firstDate = moment(transactions[0][TRANSACTION_DATE], "DD MMM YYYY");
+    const lastDate = moment(transactions[1][TRANSACTION_DATE], "DD MMM YYYY");
 
     return moment(firstDate).isBefore(lastDate)
       ? transactions.reverse()
@@ -124,8 +124,6 @@ export function Upload(props) {
   };
 
   const onFileChange = ({ target: el }) => {
-    //   const { onFileChange } = this.props;
-
     const reader = new FileReader();
 
     reader.readAsText(el.files[0]);
