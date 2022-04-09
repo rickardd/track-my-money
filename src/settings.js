@@ -3,6 +3,8 @@ const ASB_BANK = "ASB_BANK";
 const WESTPAC_BANK = "WESTPAC_BANK";
 const ANZ_BANK = "ANZ_BANK";
 
+const SUPPORTED_BANKS = [KIWI_BANK, ASB_BANK, WESTPAC_BANK, ANZ_BANK];
+
 const BANKS = {
   KIWI_BANK: {
     HEADER_REGEX: /\d+-\d+-\d+-\d+,,,,/,
@@ -72,6 +74,7 @@ const TRANSACTION_TEXT = 1;
 const TRANSACTION_VALUE = 2;
 
 export {
+  SUPPORTED_BANKS,
   KIWI_BANK,
   ASB_BANK,
   WESTPAC_BANK,

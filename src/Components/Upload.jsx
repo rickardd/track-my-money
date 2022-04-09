@@ -2,6 +2,7 @@ import { useContext } from "react";
 import moment from "moment";
 import AppContext from "../app-context";
 import {
+  SUPPORTED_BANKS,
   bank,
   BANKS,
   KIWI_BANK,
@@ -138,8 +139,11 @@ export function Upload(props) {
         transactions = getExpenses(transactions);
         setTransactions(transactions);
       } catch (error) {
+        const currentBankSupport = SUPPORTED_BANKS.join(", ")
+          .replaceAll("_", " ")
+          .toLowerCase();
         alert(
-          "Something went wrong while parsing the csv file. Check the file and try again."
+          `Something went wrong while parsing the CSV file. \n  - Is your bank supported? Currently supported banks are\n    -  ${currentBankSupport}. \n  - Check the file and try again. \n`
         );
       }
     };
