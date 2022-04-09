@@ -30,6 +30,7 @@ import {
 //   - Ask merge with existing transactions or overwrite
 //   - Aks if it's a shared account, divide by number of people.
 // - Make react work with multiple default filters.
+// Ensure dates works for all banks and is NZ time zone
 
 function App() {
   const [transactions, setTransactions] = useState([]);

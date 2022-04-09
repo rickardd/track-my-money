@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import moment from "moment";
 import AppContext from "../app-context";
 import {
   bank,
@@ -8,7 +9,10 @@ import {
   WESTPAC_BANK,
   ANZ_BANK,
   TRANSACTION_VALUE,
+  TRANSACTION_DATE,
 } from "../settings.js";
+
+import { normalizeDate } from "../Services/helper";
 
 export function Upload(props) {
   const { setTransactions } = useContext(AppContext);
@@ -58,14 +62,20 @@ export function Upload(props) {
   const normalizeJson = (json, bankId) => {
     if (bankId === KIWI_BANK) {
       return json.map((row) => [
-        row[bank(bankId).TRANSACTION_DATE],
+        normalizeDate(
+          row[BANKS[bankId].COLUMNS.TRANSACTION_DATE],
+          BANKS[bankId].DATE_FORMAT
+        ),
         row[bank(bankId).TRANSACTION_TEXT],
         parseFloat(row[bank(bankId).TRANSACTION_VALUE]),
       ]);
     }
     if (bankId === ASB_BANK) {
       return json.map((row) => [
-        row[bank(bankId).TRANSACTION_DATE],
+        normalizeDate(
+          row[BANKS[bankId].COLUMNS.TRANSACTION_DATE],
+          BANKS[bankId].DATE_FORMAT
+        ),
         `
           ${row[bank(bankId).TRANSACTION_PAYEE]}: 
           ${row[bank(bankId).TRANSACTION_TEXT]}
@@ -75,7 +85,10 @@ export function Upload(props) {
     }
     if (bankId === WESTPAC_BANK) {
       return json.map((row) => [
-        row[BANKS[bankId].COLUMNS.TRANSACTION_DATE],
+        normalizeDate(
+          row[BANKS[bankId].COLUMNS.TRANSACTION_DATE],
+          BANKS[bankId].DATE_FORMAT
+        ),
         `
           ${row[BANKS[bankId].COLUMNS.TRANSACTION_OTHER_PARTY]}:
           [${row[BANKS[bankId].COLUMNS.TRANSACTION_DESCRIPTION]}]
@@ -86,7 +99,10 @@ export function Upload(props) {
     }
     if (bankId === ANZ_BANK) {
       return json.map((row) => [
-        row[BANKS[bankId].COLUMNS.TRANSACTION_DATE],
+        normalizeDate(
+          row[BANKS[bankId].COLUMNS.TRANSACTION_DATE],
+          BANKS[bankId].DATE_FORMAT
+        ),
         `
           ${row[BANKS[bankId].COLUMNS.TRANSACTION_TYPE]}:
           [${row[BANKS[bankId].COLUMNS.TRANSACTION_DETAILS]}]
@@ -95,6 +111,16 @@ export function Upload(props) {
         parseFloat(row[BANKS[bankId].COLUMNS.TRANSACTION_VALUE]),
       ]);
     }
+  };
+
+  const sortTransactions = (transactions) => {
+    if (transactions <= 1) return transactions;
+    const firstDate = transactions[0][TRANSACTION_DATE];
+    const lastDate = transactions[transactions.length - 1][TRANSACTION_DATE];
+
+    return moment(firstDate).isBefore(lastDate)
+      ? transactions.reverse()
+      : transactions;
   };
 
   const onFileChange = ({ target: el }) => {
@@ -110,6 +136,7 @@ export function Upload(props) {
         const bankId = guessBankByCsvHeader(csvHeader);
         const transactionsJson = convertToJson(reader.result);
         let transactions = normalizeJson(transactionsJson, bankId);
+        transactions = sortTransactions(transactions);
         transactions = getExpenses(transactions);
         setTransactions(transactions);
       } catch (error) {

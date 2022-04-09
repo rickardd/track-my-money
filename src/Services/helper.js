@@ -21,10 +21,10 @@ const countWeeks = (transactions) => {
   const startDate = transactions[0][TRANSACTION_DATE];
   const endDate = transactions[transactions.length - 1][TRANSACTION_DATE];
 
-  const a = moment.utc(startDate);
-  const b = moment.utc(endDate);
+  const a = moment.utc(startDate, "DD MMM YYYY");
+  const b = moment.utc(endDate, "DD MMM YYYY");
 
-  return parseFloat(b.diff(a, "weeks"));
+  return parseFloat(a.diff(b, "weeks"));
 };
 
 const countMonths = (transactions) => {
@@ -33,10 +33,14 @@ const countMonths = (transactions) => {
   const startDate = transactions[0][TRANSACTION_DATE];
   const endDate = transactions[transactions.length - 1][TRANSACTION_DATE];
 
-  const a = moment.utc(startDate);
-  const b = moment.utc(endDate);
+  const a = moment.utc(startDate, "DD MMM YYYY");
+  const b = moment.utc(endDate, "DD MMM YYYY");
 
-  return parseFloat(b.diff(a, "months"));
+  return parseFloat(a.diff(b, "months"));
+};
+
+const normalizeDate = (date, inputFormat) => {
+  return moment(date, inputFormat, "en-nz").format("D MMM YYYY");
 };
 
 const getWeeklyAverage = (weeks, total) => {
@@ -139,6 +143,7 @@ export {
   countMonths,
   getWeeklyAverage,
   getMonthlyAverage,
+  normalizeDate,
   getFilteredTransactions,
   getFilteredTransactionsOther,
   getRelevantTransactions,

@@ -6,6 +6,7 @@ const ANZ_BANK = "ANZ_BANK";
 const BANKS = {
   KIWI_BANK: {
     HEADER_REGEX: /\d+-\d+-\d+-\d+,,,,/,
+    DATE_FORMAT: "DD MMM YYYY ",
     COLUMNS: {
       TRANSACTION_DATE: 0,
       TRANSACTION_TEXT: 1,
@@ -14,6 +15,7 @@ const BANKS = {
   },
   ASB_BANK: {
     HEADER_REGEX: /Date,Unique Id,Tran Type,Cheque Number,Payee,Memo,Amount/,
+    DATE_FORMAT: "YYYY/MM/DD",
     COLUMNS: {
       TRANSACTION_DATE: 0,
       TRANSACTION_PAYEE: 4,
@@ -24,6 +26,7 @@ const BANKS = {
   WESTPAC_BANK: {
     HEADER_REGEX:
       /Date,Amount,Other Party,Description,Reference,Particulars,Analysis Code/,
+    DATE_FORMAT: "DD/MM/YYYY",
     COLUMNS: {
       TRANSACTION_DATE: 0,
       TRANSACTION_VALUE: 1,
@@ -35,6 +38,7 @@ const BANKS = {
   ANZ_BANK: {
     HEADER_REGEX:
       /Type,Details,Particulars,Code,Reference,Amount,Date,ForeignCurrencyAmount,ConversionCharge/,
+    DATE_FORMAT: "DD/MM/YYYY",
     COLUMNS: {
       TRANSACTION_DATE: 6,
       TRANSACTION_VALUE: 5,
