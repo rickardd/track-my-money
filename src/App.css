@@ -8,6 +8,7 @@
 body {
   background: #9261a5;
   padding: 24px;
+  position: relative;
 }
 
 .color-white {
@@ -49,7 +50,7 @@ body {
   width: 100%;
 }
 
-header {
+.app-header {
   background: white;
   position: fixed;
   top: 0;
@@ -162,7 +163,7 @@ input {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .show-block {
