@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import AppContext from "../app-context";
 import {
@@ -14,10 +14,12 @@ import {
 } from "../settings.js";
 
 import { normalizeDate } from "../Services/helper";
+import { Modal } from "./Modal";
 
 export function Upload(props) {
   const { setTransactions } = useContext(AppContext);
   const { button } = props;
+  const [modalOpen, setModalOpen] = useState(false);
 
   const getCsvHeader = (data) => {
     return data.trim().split("\n")[0];
@@ -124,6 +126,21 @@ export function Upload(props) {
       : transactions;
   };
 
+  const handleUpload = (result) => {
+    const csvHeader = getCsvHeader(result);
+    const bankId = guessBankByCsvHeader(csvHeader);
+    const transactionsJson = convertToJson(result);
+    let transactions = normalizeJson(transactionsJson, bankId);
+    transactions = sortTransactions(transactions);
+    transactions = getExpenses(transactions);
+
+    setModalOpen(true);
+
+    // if (responseFromModal) {
+    //   setTransactions(transactions);
+    // }
+  };
+
   const onFileChange = ({ target: el }) => {
     const reader = new FileReader();
 
@@ -131,13 +148,7 @@ export function Upload(props) {
 
     reader.onload = () => {
       try {
-        const csvHeader = getCsvHeader(reader.result);
-        const bankId = guessBankByCsvHeader(csvHeader);
-        const transactionsJson = convertToJson(reader.result);
-        let transactions = normalizeJson(transactionsJson, bankId);
-        transactions = sortTransactions(transactions);
-        transactions = getExpenses(transactions);
-        setTransactions(transactions);
+        handleUpload(reader.result);
       } catch (error) {
         const currentBankSupport = SUPPORTED_BANKS.join(", ")
           .replaceAll("_", " ")
@@ -162,6 +173,15 @@ export function Upload(props) {
         data-button={button}
         onChange={onFileChange}
       />
+
+      {!!modalOpen && (
+        <Modal headLine="rick" paragraph="paragraph">
+          <p>hello</p>
+          <p>hello</p>
+          <p>hello</p>
+          <p>hello</p>
+        </Modal>
+      )}
     </div>
   );
 }
