@@ -16,10 +16,13 @@ import {
 import { normalizeDate } from "../Services/helper";
 import { Modal } from "./Modal";
 
+import { ManageUploadData } from "./ManageUploadData";
+
 export function Upload(props) {
-  const { setTransactions } = useContext(AppContext);
+  const { transactions, setTransactions } = useContext(AppContext);
   const { button } = props;
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalClose, setModalClose] = useState(true);
+  const [_transactions, _setTransactions] = useState([]);
 
   const getCsvHeader = (data) => {
     return data.trim().split("\n")[0];
@@ -134,11 +137,8 @@ export function Upload(props) {
     transactions = sortTransactions(transactions);
     transactions = getExpenses(transactions);
 
-    setModalOpen(true);
-
-    // if (responseFromModal) {
-    //   setTransactions(transactions);
-    // }
+    _setTransactions(transactions);
+    setModalClose(false);
   };
 
   const onFileChange = ({ target: el }) => {
@@ -164,6 +164,23 @@ export function Upload(props) {
     };
   };
 
+  const overwriteCurrentTransactions = () => {
+    setTransactions([..._transactions]);
+  };
+
+  const mergeCurrentTransactions = () => {
+    setTransactions([...transactions, ..._transactions]);
+  };
+
+  const handleModalSubmit = ({ writeMethod }) => {
+    if (writeMethod === "OVERWRITE") {
+      overwriteCurrentTransactions();
+    } else if (writeMethod === "MERGE") {
+      mergeCurrentTransactions();
+    }
+    setModalClose(true);
+  };
+
   return (
     <div>
       <input
@@ -174,14 +191,17 @@ export function Upload(props) {
         onChange={onFileChange}
       />
 
-      {!!modalOpen && (
-        <Modal headLine="rick" paragraph="paragraph">
-          <p>hello</p>
-          <p>hello</p>
-          <p>hello</p>
-          <p>hello</p>
-        </Modal>
-      )}
+      <Modal
+        headLine="Treat your data?"
+        paragraph="Your transactions are uploaded. Now, what do you like to do with them?"
+        close={modalClose}
+        onClose={() => {
+          setModalClose(true);
+          console.log("close");
+        }}
+      >
+        <ManageUploadData onSubmit={handleModalSubmit} />
+      </Modal>
     </div>
   );
 }

@@ -1,24 +1,16 @@
-import { useState } from "react";
 import "./MyModal.scss";
 
 export function Modal(props) {
-  const { headLine, paragraph, children } = props;
-
-  const [open, setOpen] = useState(true);
-  // Add modal css
-  // Take children as markup
-  // ask if shared bank account, how many people
-  // Aks if overwrite or merge existing transactions
-  // "return" user interaction
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { headLine, paragraph, children, close, onClose } = props;
 
   return (
-    <div className={`my-modal ${!open && "hide"}`} role="dialog">
+    <div className={`my-modal ${close && "hide"}`} role="dialog">
       <article className="my-modal-content">
-        <button type="button" onClick={handleClose} className="my-modal-close">
+        <button
+          type="button"
+          onClick={() => onClose()}
+          className="my-modal-close"
+        >
           x
         </button>
         <header className="my-modal-header">
