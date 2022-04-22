@@ -30,9 +30,13 @@ import {
 // - Graphs
 //    - over-all spending
 //    - Trend graph for each filter
+//    - Install https://recharts.org/en-US/guide/getting-started
+//    - Pie graph in header, This requires color coded filters.
 // - Color code filters
 // - PWA
 // - Add links to the web
+// - Create share link with Firebase
+// - Design front page similar to https://formidable.com/open-source/victory/
 
 function App() {
   const [transactions, setTransactions] = useState([]);
