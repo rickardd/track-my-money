@@ -13,6 +13,8 @@ import {
   TRANSACTION_DATE,
 } from "../settings.js";
 
+import { store } from "../Services/helper";
+
 import { normalizeDate } from "../Services/helper";
 import { Modal } from "./Modal";
 
@@ -165,11 +167,19 @@ export function Upload(props) {
   };
 
   const overwriteCurrentTransactions = () => {
-    setTransactions([..._transactions]);
+    let transactions = [..._transactions];
+    transactions = sortTransactions(transactions);
+    transactions = getExpenses(transactions);
+
+    setTransactions(transactions);
   };
 
   const mergeCurrentTransactions = () => {
-    setTransactions([...transactions, ..._transactions]);
+    let __transactions = [...transactions, ..._transactions];
+    __transactions = sortTransactions(__transactions);
+    __transactions = getExpenses(__transactions);
+
+    setTransactions(__transactions);
   };
 
   const handleModalSubmit = ({ writeMethod }) => {
