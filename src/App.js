@@ -36,6 +36,7 @@ import {
 // - Color code filters
 // - PWA
 // - Add links to the web
+// - Delete a filter
 
 // React refactoring
 // - Extend components, e.g otherTable and filterTables could extend from the table component. https://reactjs.org/docs/composition-vs-inheritance.html
