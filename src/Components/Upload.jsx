@@ -171,7 +171,7 @@ export function Upload(props) {
     transactions = sortTransactions(transactions);
     transactions = getExpenses(transactions);
 
-    setTransactions(transactions);
+    _setTransactions(transactions);
   };
 
   const mergeCurrentTransactions = () => {
@@ -179,15 +179,29 @@ export function Upload(props) {
     __transactions = sortTransactions(__transactions);
     __transactions = getExpenses(__transactions);
 
-    setTransactions(__transactions);
+    _setTransactions(__transactions);
   };
 
-  const handleModalSubmit = ({ writeMethod }) => {
-    if (writeMethod === "OVERWRITE") {
-      overwriteCurrentTransactions();
-    } else if (writeMethod === "MERGE") {
-      mergeCurrentTransactions();
-    }
+  const handleWriteMethod = (writeMethod) => {
+    if (writeMethod === "OVERWRITE") return overwriteCurrentTransactions();
+    if (writeMethod === "MERGE") return mergeCurrentTransactions();
+  };
+
+  const handleSharedQuantity = (sharedQuantity) => {
+    const __transactions = _transactions.map((t) => {
+      t[TRANSACTION_VALUE] = t[TRANSACTION_VALUE] / sharedQuantity;
+      return t;
+    });
+
+    _setTransactions(__transactions);
+  };
+
+  const handleModalSubmit = ({ writeMethod, sharedQuantity }) => {
+    handleWriteMethod(writeMethod);
+    handleSharedQuantity(sharedQuantity);
+
+    setTransactions(_transactions);
+
     setModalClose(true);
   };
 

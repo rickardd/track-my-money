@@ -11,6 +11,7 @@ export function ManageUploadData(props) {
   const [writeMethod, setWriteMethod] = useState(
     transactions.length ? METHOD_MERGE : METHOD_OVERWRITE
   );
+  const [sharedChecked, setSharedChecked] = useState(false);
 
   const handleChange = ({ target: el }) => {
     console.log(el.value);
@@ -18,12 +19,16 @@ export function ManageUploadData(props) {
   };
 
   const handleSharedAccountChange = ({ target: el }) => {
-    console.log("shared clicked");
+    setSharedChecked(!sharedChecked);
+  };
+
+  const getSharedQuantity = () => {
+    return sharedChecked ? 2 : 1;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ writeMethod });
+    onSubmit({ writeMethod, sharedQuantity: getSharedQuantity() });
   };
 
   return (
@@ -62,8 +67,7 @@ export function ManageUploadData(props) {
           <input
             type="checkbox"
             name="write-method"
-            value="rick"
-            checked={true}
+            value={sharedChecked}
             onChange={handleSharedAccountChange}
           />
         </label>
