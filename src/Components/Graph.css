@@ -1,0 +1,8 @@
+.graph {
+    padding: 12px 24px;
+    background-color: white;
+    width: 500px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.1s ease;
+}

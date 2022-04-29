@@ -32,6 +32,7 @@ import {
 //    - Trend graph for each filter
 //    - Install https://recharts.org/en-US/guide/getting-started
 //    - Pie graph in header, This requires color coded filters.
+//    - Make a year comparison graph like https://recharts.org/en-US/examples/SynchronizedAreaChart
 // - Color code filters
 // - PWA
 // - Add links to the web
