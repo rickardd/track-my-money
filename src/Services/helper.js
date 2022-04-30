@@ -1,3 +1,4 @@
+import * as R from "ramda";
 import moment from "moment";
 import {
   TRANSACTION_DATE,
@@ -86,6 +87,37 @@ const getRelevantTransactions = (excludeQueries, transactions) => {
   });
 };
 
+const getTransactionsGroupedByMonth = (transactions) => {
+  const labelTranslations = (transactions) => {
+    return transactions.map((t) => {
+      t.yearMonth = moment(t[TRANSACTION_DATE], "DD MMM YYYY", "en-nz").format(
+        "YYYY-MMM"
+      );
+      return t;
+    });
+  };
+
+  const groupTranslationsByLabel = (transactions) => {
+    // let groups = [];
+    let groups = {};
+    debugger;
+    transactions.forEach((t) => {
+      if (!groups[t.yearMonth]) groups[t.yearMonth] = [];
+
+      return groups[t.yearMonth].push(t);
+    });
+    return groups;
+  };
+
+  let labeledTranslations = labelTranslations(transactions);
+  let groupedTranslations = groupTranslationsByLabel(labeledTranslations);
+
+  // This array is broken
+  // Maybe this should return an object instead.
+  // [2021-Nov: Array(15), 2021-Oct: Array(40), 2021-Sep: Array(28), 2021-Aug: Array(36), 2021-Jul: Array(46), …]
+  return groupedTranslations;
+};
+
 const countTotal = (transactions) => {
   if (!transactions) {
     return 0;
@@ -147,6 +179,7 @@ export {
   getFilteredTransactions,
   getFilteredTransactionsOther,
   getRelevantTransactions,
+  getTransactionsGroupedByMonth,
   countTotal,
   store,
 };

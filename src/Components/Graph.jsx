@@ -3,6 +3,7 @@ import { useContext } from "react";
 import AppContext from "../app-context";
 import { TRANSACTION_VALUE, TRANSACTION_DATE } from "../settings";
 // import { formatMoney } from "../Services/helper";
+import { getTransactionsGroupedByMonth, countTotal } from "../Services/helper";
 
 import {
   LineChart,
@@ -19,20 +20,39 @@ export function Graph(props) {
   const { filter } = props;
   const { transactions } = useContext(AppContext);
 
-  const getData = () => {
-    const filteredTransactions = getFilteredTransactions(
-      filter.queries,
-      transactions
-    );
+  // const getData = () => {
+  //   const filteredTransactions = getFilteredTransactions(
+  //     filter.queries,
+  //     transactions
+  //   );
 
-    return filteredTransactions
-      .map((t) => {
+  //   return filteredTransactions
+  //     .map((t) => {
+  //       return {
+  //         Name: t[TRANSACTION_DATE],
+  //         Value: Math.round(Math.abs(t[TRANSACTION_VALUE])),
+  //       };
+  //     })
+  //     .reverse();
+  // };
+
+  const getData = () => {
+    const groupedTranslations = getTransactionsGroupedByMonth(transactions);
+    console.log(groupedTranslations);
+
+    const data = groupedTranslations
+      .map((group) => {
+        debugger;
         return {
-          Name: t[TRANSACTION_DATE],
-          Value: Math.round(Math.abs(t[TRANSACTION_VALUE])),
+          Name: "rick",
+          Value: countTotal(group),
         };
       })
       .reverse();
+
+    debugger;
+
+    return data;
   };
 
   return (
