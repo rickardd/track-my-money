@@ -120,8 +120,8 @@ export function Upload(props) {
     const lastDate = moment(transactions[1][TRANSACTION_DATE], "DD MMM YYYY");
 
     return moment(firstDate).isBefore(lastDate)
-      ? transactions.reverse()
-      : transactions;
+      ? transactions
+      : transactions.reverse();
   };
 
   const onFileChange = ({ target: el }) => {
