@@ -24,7 +24,7 @@ export function Filters() {
                   <Filter filter={f} key={`filter-fieldset-${index}`} />
                   <Graph filter={f} key={`graph-${index}`} />
                 </>
-              )
+              );
             }
           })}
         </form>
