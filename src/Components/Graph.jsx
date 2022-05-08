@@ -18,39 +18,22 @@ import { getFilteredTransactions } from "../Services/helper";
 
 export function Graph(props) {
   const { filter } = props;
-  const { transactions } = useContext(AppContext);
+  const { transactions: allTransactions } = useContext(AppContext);
 
-  // const getData = () => {
-  //   const filteredTransactions = getFilteredTransactions(
-  //     filter.queries,
-  //     transactions
-  //   );
-
-  //   return filteredTransactions
-  //     .map((t) => {
-  //       return {
-  //         Name: t[TRANSACTION_DATE],
-  //         Value: Math.round(Math.abs(t[TRANSACTION_VALUE])),
-  //       };
-  //     })
-  //     .reverse();
-  // };
+  const transactions = getFilteredTransactions(filter.queries, allTransactions);
 
   const getData = () => {
     const groupedTranslations = getTransactionsGroupedByMonth(transactions);
     console.log(groupedTranslations);
 
-    const data = groupedTranslations
-      .map((group) => {
-        debugger;
+    const data = Object.entries(groupedTranslations)
+      .map(([label, transactions]) => {
         return {
-          Name: "rick",
-          Value: countTotal(group),
+          Name: label,
+          Value: countTotal(transactions),
         };
       })
       .reverse();
-
-    debugger;
 
     return data;
   };
@@ -67,7 +50,7 @@ export function Graph(props) {
         <CartesianGrid stroke="#ddd" strokeDasharray="5 5" />
         <XAxis dataKey="Name" stroke="#9261a5" fontSize="12" />
         <YAxis stroke="#9261a5" fontSize="12" />
-        {/* <Tooltip /> */}
+        <Tooltip />
       </LineChart>
     </div>
   );
