@@ -11,7 +11,9 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
+  Area,
   Tooltip,
+  AreaChart,
 } from "recharts";
 
 import { getFilteredTransactions } from "../Services/helper";
@@ -40,18 +42,13 @@ export function Graph(props) {
 
   return (
     <div className="graph">
-      <LineChart width={452} height={152} data={getData()}>
-        <Line
-          type="monotone"
-          dataKey="Value"
-          label={{ fill: "#9261a5", fontSize: 12 }}
-          stroke="#9261a5"
-        />
+      <AreaChart width={452} height={152} data={getData()}>
         <CartesianGrid stroke="#ddd" strokeDasharray="5 5" />
         <XAxis dataKey="Name" stroke="#9261a5" fontSize="12" />
         <YAxis stroke="#9261a5" fontSize="12" />
+        <Area dataKey="Value" stroke="#9261a5" fill="#9261a5" />
         <Tooltip />
-      </LineChart>
+      </AreaChart>
     </div>
   );
 }
