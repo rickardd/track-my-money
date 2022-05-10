@@ -21,27 +21,37 @@ export function PieGraphTotal(props) {
   const uncategorizedTranslations = getFilteredTransactionsOther(relevantTransactions, filters)
   const uncategorizedTotal = countTotal(uncategorizedTranslations)
   const percent = (uncategorizedTotal / total) * 100
-  data.push({ name: 'uncategorized', value: percent })
+  data.push({ name: 'Uncategorized', value: percent })
 
-  console.log(data);
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = [
+    'hsla(283, 27%, 51%, 1)',
+    'hsla(359, 94%, 62%, 1)',
+    'hsla(21, 89%, 56%, 1)',
+    'hsla(33, 94%, 55%, 1)',
+    'hsla(42, 93%, 64%, 1)',
+    'hsla(94, 38%, 59%, 1)',
+    'hsla(162, 43%, 46%, 1)',
+    'hsla(208, 25%, 45%, 1)',
+  ]
 
-  const innerRadius = 36;
-  const outerRadius = 50;
-  const labelDistanceFromGraph = 50;
-  const totalDiameter = outerRadius * 2 + labelDistanceFromGraph * 2 ;
+  const innerRadius = 46;
+  const outerRadius = 60;
+  const labelVerticalDistance = 26;
+  const labelHorizontalDistance = 150;
+  const totalHeight = outerRadius * 2 + labelVerticalDistance * 2 ;
+  const totalWidth = outerRadius * 2 + labelHorizontalDistance * 2 ;
   
   return (
     <div>
-      <PieChart width={totalDiameter} height={totalDiameter}>
+      <PieChart width={totalWidth} height={totalHeight}>
         <Pie
           data={data}
-          cx={totalDiameter / 2}
-          cy={totalDiameter / 2}
+          cx={totalWidth / 2}
+          cy={totalHeight / 2}
           innerRadius={innerRadius}
           outerRadius={outerRadius}
-          label
+          label={entry => entry.name}
           fill="#8884d8"
           paddingAngle={5}
           dataKey="value"
