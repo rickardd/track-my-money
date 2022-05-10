@@ -124,8 +124,7 @@ export function Filter(props) {
 
   const handleTitleKeyDown = ({ target: el }) => {
     setTitle(el.value);
-    const newFilter = { ...filter, title };
-    updateFilters(newFilter);
+    updateFilters({ ...filter, title });
   };
 
   const handleTagClick = ({ target: el }) => {
