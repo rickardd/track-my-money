@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { AppProvider } from "./app-context";
 import { Upload } from "./Components/Upload";
 import { Filters } from "./Components/Filters";
+import { PieGraphTotal } from "./Components/PieGraphTotal";
+
 
 import { defaultFilters } from "./Services/defaultFilters";
 import { Table } from "./Components/Table";
@@ -174,6 +176,8 @@ function App() {
                           }
                         />
                       </label>
+
+                      <PieGraphTotal  />
                     </div>
                   </header>
                 </>
