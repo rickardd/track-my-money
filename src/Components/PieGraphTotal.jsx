@@ -4,25 +4,31 @@ import AppContext from "../app-context";
 import { PieChart, Pie, Cell } from 'recharts';
 import { getRelevantTransactions, getFilteredTransactions, getFilteredTransactionsOther, countTotal } from "../Services/helper";
 
-export function PieGraphTotal(props) {
-
+export function PieGraphTotal() {
   const { filters, transactions, excludeQueries } = useContext(AppContext);
 
-  const relevantTransactions = getRelevantTransactions( excludeQueries, transactions );
-  const total = countTotal(relevantTransactions)
+  const getData = () => {
+    const relevantTransactions = getRelevantTransactions( excludeQueries, transactions );
+    const total = countTotal(relevantTransactions)
 
-  const data = filters.map( f => {
-    const filterTransactions = getFilteredTransactions(f.queries, relevantTransactions)
-    const filterTotal = countTotal(filterTransactions)
-    const percent = (filterTotal / total) * 100
-    return { name: f.title, value: percent }
-  })
+    const create = (label, filterTransactions) => {
+      const filterTotal = countTotal(filterTransactions)
+      const percent = (filterTotal / total) * 100
+      return { name: label, value: percent }
+    }
   
-  const uncategorizedTranslations = getFilteredTransactionsOther(relevantTransactions, filters)
-  const uncategorizedTotal = countTotal(uncategorizedTranslations)
-  const percent = (uncategorizedTotal / total) * 100
-  data.push({ name: 'Uncategorized', value: percent })
+    const data = filters.map( f => {
+      const filterTransactions = getFilteredTransactions(f.queries, relevantTransactions)
+      return create(f.title, filterTransactions)
+    })
 
+    const uncategorizedTransactions = getFilteredTransactionsOther(relevantTransactions, filters)
+    data.push(create('Uncategorized', uncategorizedTransactions))
+
+    return data
+  }
+
+  const data = getData();
 
   const COLORS = [
     'hsla(283, 27%, 51%, 1)',
