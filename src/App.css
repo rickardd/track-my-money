@@ -86,7 +86,7 @@ header {
 
 .layout-table {
   overflow-y: scroll;
-  max-height: 1000px;
+  height: calc(100vh - 268px);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
   background-color: #fff;
   padding: 24px;

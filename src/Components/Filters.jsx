@@ -12,7 +12,7 @@ export function Filters() {
   return (
     <>
       {transactions.length > 0 && (
-        <form>
+        <form className="filters-form">
           {filters.map((f, index) => {
             if (f.exclude) {
               return (
