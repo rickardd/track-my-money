@@ -1,13 +1,9 @@
 import "./Graph.css";
 import { useContext } from "react";
 import AppContext from "../app-context";
-import { TRANSACTION_VALUE, TRANSACTION_DATE } from "../settings";
-// import { formatMoney } from "../Services/helper";
 import { getTransactionsGroupedByMonth, countTotal } from "../Services/helper";
 
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
