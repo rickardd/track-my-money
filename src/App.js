@@ -19,6 +19,9 @@ import {
 
 // ToDo
 
+// - Add ramda with pipes
+// - Favicon and logo and name
+// - Start page
 // - Upload modal
 //   - Ask merge with existing transactions or overwrite
 //   - Ask if it's a shared account, divide by number of people.
@@ -36,6 +39,15 @@ import {
 // - Color code filters
 // - PWA
 // - Add links to the web
+// - Delete a filter
+// - Add SEO tags
+
+// React refactoring
+// - Extend components, e.g otherTable and filterTables could extend from the table component. https://reactjs.org/docs/composition-vs-inheritance.html
+// - How to add static and dynamic css-classnames
+// - Animations
+// - Scope css by components
+// - Make a modal of everything e.g button, checkboxes, headlines, text-fields, etc.
 // - Create share link with Firebase
 // - Design front page similar to https://formidable.com/open-source/victory/
 
@@ -156,7 +168,7 @@ function App() {
             (() => {
               return (
                 <>
-                  <header>
+                  <header className="app-header">
                     <div className="header-content">
                       <h3>
                         <span className="mr-24">

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import AppContext from "../app-context";
 import {
@@ -13,11 +13,18 @@ import {
   TRANSACTION_DATE,
 } from "../settings.js";
 
+import { store } from "../Services/helper";
+
 import { normalizeDate } from "../Services/helper";
+import { Modal } from "./Modal";
+
+import { ManageUploadData } from "./ManageUploadData";
 
 export function Upload(props) {
-  const { setTransactions } = useContext(AppContext);
+  const { transactions, setTransactions } = useContext(AppContext);
   const { button } = props;
+  const [modalClose, setModalClose] = useState(true);
+  const [_transactions, _setTransactions] = useState([]);
 
   const getCsvHeader = (data) => {
     return data.trim().split("\n")[0];
@@ -124,6 +131,18 @@ export function Upload(props) {
       : transactions.reverse();
   };
 
+  const handleUpload = (result) => {
+    const csvHeader = getCsvHeader(result);
+    const bankId = guessBankByCsvHeader(csvHeader);
+    const transactionsJson = convertToJson(result);
+    let transactions = normalizeJson(transactionsJson, bankId);
+    transactions = sortTransactions(transactions);
+    transactions = getExpenses(transactions);
+
+    _setTransactions(transactions);
+    setModalClose(false);
+  };
+
   const onFileChange = ({ target: el }) => {
     const reader = new FileReader();
 
@@ -131,13 +150,7 @@ export function Upload(props) {
 
     reader.onload = () => {
       try {
-        const csvHeader = getCsvHeader(reader.result);
-        const bankId = guessBankByCsvHeader(csvHeader);
-        const transactionsJson = convertToJson(reader.result);
-        let transactions = normalizeJson(transactionsJson, bankId);
-        transactions = sortTransactions(transactions);
-        transactions = getExpenses(transactions);
-        setTransactions(transactions);
+        handleUpload(reader.result);
       } catch (error) {
         const currentBankSupport = SUPPORTED_BANKS.join(", ")
           .replaceAll("_", " ")
@@ -153,6 +166,45 @@ export function Upload(props) {
     };
   };
 
+  const overwriteCurrentTransactions = () => {
+    let transactions = [..._transactions];
+    transactions = sortTransactions(transactions);
+    transactions = getExpenses(transactions);
+
+    _setTransactions(transactions);
+  };
+
+  const mergeCurrentTransactions = () => {
+    let __transactions = [...transactions, ..._transactions];
+    __transactions = sortTransactions(__transactions);
+    __transactions = getExpenses(__transactions);
+
+    _setTransactions(__transactions);
+  };
+
+  const handleWriteMethod = (writeMethod) => {
+    if (writeMethod === "OVERWRITE") return overwriteCurrentTransactions();
+    if (writeMethod === "MERGE") return mergeCurrentTransactions();
+  };
+
+  const handleSharedQuantity = (sharedQuantity) => {
+    const __transactions = _transactions.map((t) => {
+      t[TRANSACTION_VALUE] = t[TRANSACTION_VALUE] / sharedQuantity;
+      return t;
+    });
+
+    _setTransactions(__transactions);
+  };
+
+  const handleModalSubmit = ({ writeMethod, sharedQuantity }) => {
+    handleWriteMethod(writeMethod);
+    handleSharedQuantity(sharedQuantity);
+
+    setTransactions(_transactions);
+
+    setModalClose(true);
+  };
+
   return (
     <div>
       <input
@@ -162,6 +214,18 @@ export function Upload(props) {
         data-button={button}
         onChange={onFileChange}
       />
+
+      <Modal
+        headLine="Upload options"
+        paragraph=""
+        close={modalClose}
+        onClose={() => {
+          setModalClose(true);
+          console.log("close");
+        }}
+      >
+        <ManageUploadData onSubmit={handleModalSubmit} />
+      </Modal>
     </div>
   );
 }
