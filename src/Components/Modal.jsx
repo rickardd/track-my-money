@@ -1,4 +1,4 @@
-import "./MyModal.scss";
+import "./Modal.scss";
 
 export function Modal(props) {
   const { headLine, paragraph, children, close, onClose } = props;

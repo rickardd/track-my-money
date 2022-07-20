@@ -38,7 +38,7 @@ export function ManageUploadData(props) {
           return (
             <>
               <label className="mr-24">
-                Overwrite? &nbsp;
+                Overwrite &nbsp;
                 <input
                   type="radio"
                   name="write-method"
@@ -48,7 +48,7 @@ export function ManageUploadData(props) {
                 />
               </label>
               <label className="mr-24">
-                Merge? &nbsp;
+                Merge &nbsp;
                 <input
                   type="radio"
                   name="write-method"
@@ -57,13 +57,15 @@ export function ManageUploadData(props) {
                   onChange={handleChange}
                 />
               </label>
+
+              <hr className="mt-12" />
             </>
           );
         })()}
 
       <div>
         <label className="mr-24">
-          Shared Account? &nbsp;
+          Divide all amounts by 2 &nbsp;
           <input
             type="checkbox"
             name="write-method"
@@ -71,6 +73,7 @@ export function ManageUploadData(props) {
             onChange={handleSharedAccountChange}
           />
         </label>
+        <small>E.g if you shared this account with someone else.</small>
       </div>
 
       <div className="text-right">

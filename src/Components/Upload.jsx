@@ -216,8 +216,8 @@ export function Upload(props) {
       />
 
       <Modal
-        headLine="Treat your data?"
-        paragraph="Your transactions are uploaded. Now, what do you like to do with them?"
+        headLine="Upload options"
+        paragraph=""
         close={modalClose}
         onClose={() => {
           setModalClose(true);

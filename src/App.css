@@ -11,8 +11,17 @@ body {
   position: relative;
 }
 
+hr {
+  background-color: #dedede;
+  height: 1px;
+}
+
 .color-white {
   color: white;
+}
+
+.mt-12 {
+  margin-top: 12px;
 }
 
 .mr-12 {
