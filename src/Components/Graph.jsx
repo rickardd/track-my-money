@@ -38,19 +38,15 @@ export function Graph(props) {
 
   const getData = () => {
     const groupedTranslations = getTransactionsGroupedByMonth(transactions);
-    console.log(groupedTranslations);
 
-    const data = groupedTranslations
-      .map((group) => {
-        debugger;
+    const data = Object.entries(groupedTranslations)
+      .map(([groupName, groupTransactions]) => {
         return {
-          Name: "rick",
-          Value: countTotal(group),
+          Name: groupName,
+          Value: countTotal(groupTransactions),
         };
       })
       .reverse();
-
-    debugger;
 
     return data;
   };

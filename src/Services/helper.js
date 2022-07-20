@@ -98,9 +98,7 @@ const getTransactionsGroupedByMonth = (transactions) => {
   };
 
   const groupTranslationsByLabel = (transactions) => {
-    // let groups = [];
     let groups = {};
-    debugger;
     transactions.forEach((t) => {
       if (!groups[t.yearMonth]) groups[t.yearMonth] = [];
 
