@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { AppProvider } from "./app-context";
 import { Upload } from "./Components/Upload";
 import { Filters } from "./Components/Filters";
+import { PieGraphTotal } from "./Components/PieGraphTotal";
+
 
 import { defaultFilters } from "./Services/defaultFilters";
 import { Table } from "./Components/Table";
@@ -35,6 +37,7 @@ import {
 //    - Trend graph for each filter
 //    - Install https://recharts.org/en-US/guide/getting-started
 //    - Pie graph in header, This requires color coded filters.
+//    - Make a year comparison graph like https://recharts.org/en-US/examples/SynchronizedAreaChart
 // - Color code filters
 // - PWA
 // - Add links to the web
@@ -185,6 +188,8 @@ function App() {
                           }
                         />
                       </label>
+
+                      <PieGraphTotal  />
                     </div>
                   </header>
                 </>
@@ -232,8 +237,8 @@ function App() {
                   <div className="layout-table">
                     <Table
                       key={`table-id-other`}
-                      tableTitle="Remain transactions"
-                      tableParagraph="These are uncategorized transactions. When this table is empty all transactions has been categories"
+                      tableTitle="Uncategorized transactions"
+                      tableParagraph="When this table is empty all transactions has been categories"
                       transactions={getFilteredTransactionsOther(
                         transactions,
                         filters
