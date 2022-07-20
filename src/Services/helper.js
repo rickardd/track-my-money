@@ -1,4 +1,3 @@
-import * as R from "ramda";
 import moment from "moment";
 import {
   TRANSACTION_DATE,
@@ -110,9 +109,6 @@ const getTransactionsGroupedByMonth = (transactions) => {
   let labeledTranslations = labelTranslations(transactions);
   let groupedTranslations = groupTranslationsByLabel(labeledTranslations);
 
-  // This array is broken
-  // Maybe this should return an object instead.
-  // [2021-Nov: Array(15), 2021-Oct: Array(40), 2021-Sep: Array(28), 2021-Aug: Array(36), 2021-Jul: Array(46), …]
   return groupedTranslations;
 };
 

@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { AppProvider } from "./app-context";
 import { Upload } from "./Components/Upload";
 import { Filters } from "./Components/Filters";
+import { PieGraphTotal } from "./Components/PieGraphTotal";
+
 
 import { defaultFilters } from "./Services/defaultFilters";
 import { Table } from "./Components/Table";
@@ -186,6 +188,8 @@ function App() {
                           }
                         />
                       </label>
+
+                      <PieGraphTotal  />
                     </div>
                   </header>
                 </>
@@ -233,8 +237,8 @@ function App() {
                   <div className="layout-table">
                     <Table
                       key={`table-id-other`}
-                      tableTitle="Remain transactions"
-                      tableParagraph="These are uncategorized transactions. When this table is empty all transactions has been categories"
+                      tableTitle="Uncategorized transactions"
+                      tableParagraph="When this table is empty all transactions has been categories"
                       transactions={getFilteredTransactionsOther(
                         transactions,
                         filters

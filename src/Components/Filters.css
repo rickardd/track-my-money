@@ -11,3 +11,13 @@ fieldset {
 /* fieldset:nth-child(odd) {
   background-color: #eee;
 } */
+
+.filters-form {
+  height: calc(100vh - 339px);
+  overflow-y: scroll;
+  margin-bottom: 24px;
+}
+
+.filters-form *:last-child {
+  margin-bottom: 0;
+}
