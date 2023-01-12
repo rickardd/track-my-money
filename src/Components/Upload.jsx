@@ -24,7 +24,7 @@ export function Upload(props) {
   const { transactions, setTransactions } = useContext(AppContext);
   const { button } = props;
   const [modalClose, setModalClose] = useState(true);
-  const [_transactions, _setTransactions] = useState([]);
+  const [uploadedTransactions, setUploadedTransactions] = useState([]);
 
   const getCsvHeader = (data) => {
     return data.trim().split("\n")[0];
@@ -139,7 +139,7 @@ export function Upload(props) {
     transactions = sortTransactions(transactions);
     transactions = getExpenses(transactions);
 
-    _setTransactions(transactions);
+    setUploadedTransactions(transactions);
     setModalClose(false);
   };
 
@@ -167,40 +167,38 @@ export function Upload(props) {
   };
 
   const overwriteCurrentTransactions = () => {
-    let transactions = [..._transactions];
-    transactions = sortTransactions(transactions);
-    transactions = getExpenses(transactions);
+    let _transactions = [...uploadedTransactions];
+    _transactions = sortTransactions(_transactions);
+    _transactions = getExpenses(_transactions);
 
-    _setTransactions(transactions);
+    setTransactions(_transactions);
   };
 
-  const mergeCurrentTransactions = () => {
-    let __transactions = [...transactions, ..._transactions];
-    __transactions = sortTransactions(__transactions);
-    __transactions = getExpenses(__transactions);
+  const mergeWithCurrentTransactions = () => {
+    let _transactions = [...transactions, ...uploadedTransactions];
+    _transactions = sortTransactions(_transactions);
+    _transactions = getExpenses(_transactions);
 
-    _setTransactions(__transactions);
+    setTransactions(_transactions);
   };
 
   const handleWriteMethod = (writeMethod) => {
-    if (writeMethod === "OVERWRITE") return overwriteCurrentTransactions();
-    if (writeMethod === "MERGE") return mergeCurrentTransactions();
+    if (writeMethod === "OVERWRITE") overwriteCurrentTransactions();
+    if (writeMethod === "MERGE") mergeWithCurrentTransactions();
   };
 
   const handleSharedQuantity = (sharedQuantity) => {
-    const __transactions = _transactions.map((t) => {
+    const _transactions = uploadedTransactions.map((t) => {
       t[TRANSACTION_VALUE] = t[TRANSACTION_VALUE] / sharedQuantity;
       return t;
     });
 
-    _setTransactions(__transactions);
+    setUploadedTransactions(_transactions);
   };
 
   const handleModalSubmit = ({ writeMethod, sharedQuantity }) => {
-    handleWriteMethod(writeMethod);
     handleSharedQuantity(sharedQuantity);
-
-    setTransactions(_transactions);
+    handleWriteMethod(writeMethod);
 
     setModalClose(true);
   };
